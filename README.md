@@ -1,1 +1,1 @@
-# intellects-webapp-claude
+intellects-webapp

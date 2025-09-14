@@ -1,0 +1,50 @@
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700&display=swap');
+
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer base {
+  html {
+    font-family: 'Inter', system-ui, sans-serif;
+    scroll-behavior: smooth;
+  }
+  
+  body {
+    @apply bg-background-dark text-text-primary;
+  }
+}
+
+@layer components {
+  .container {
+    @apply px-4 mx-auto max-w-7xl;
+  }
+  
+  .gradient-text {
+    @apply text-transparent bg-clip-text bg-gradient-to-r from-primary to-secondary bg-gradient-size animate-gradientShift;
+  }
+  
+  .btn {
+    @apply px-6 py-3 font-semibold rounded-lg transition-all duration-300 inline-flex items-center justify-center;
+  }
+  
+  .btn-primary {
+    @apply btn bg-primary hover:bg-primary-dark text-white;
+  }
+  
+  .btn-secondary {
+    @apply btn bg-secondary hover:bg-secondary-dark text-white;
+  }
+  
+  .btn-outline {
+    @apply btn border-2 border-primary hover:bg-primary hover:text-white text-text-primary;
+  }
+  
+  .input {
+    @apply w-full px-4 py-3 bg-background-light rounded-lg border border-gray-700 focus:border-primary focus:ring-2 focus:ring-primary focus:ring-opacity-20 focus:outline-none transition duration-200;
+  }
+  
+  .textarea {
+    @apply input min-h-[120px] resize-y;
+  }
+}
