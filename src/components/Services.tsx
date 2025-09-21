@@ -21,8 +21,8 @@ const Services: React.FC = () => {
     },
     {
       id: 3,
-      title: "Training & Change Management",
-      description: "Ensure smooth adoption of AI and automation with expert-led training and change management support. Empower your teams with practical skills, foster a culture of innovation, and guide your organization through every step of the transformation journey.",
+      title: "Training & Support",
+      description: "Ensure a smooth adoption of AI and automation with expert-led training and change management support. Empower your teams with practical skills, cultivate a culture of innovation, and guide your organisation through a successful transformation journey.",
       icon: <Users className="text-accent w-12 h-12" />,
       gradient: "from-accent/20 to-accent/10"
     }

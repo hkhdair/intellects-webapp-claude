@@ -1,18 +1,26 @@
 import React, { useState } from 'react';
-import { motion } from 'framer-motion';
+import { motion, AnimatePresence } from 'framer-motion';
 import { useForm } from 'react-hook-form';
-import { Mail, User, Send, CheckCircle, AlertCircle } from 'lucide-react';
+import { Mail, User, Send, CheckCircle, AlertCircle, X, AlertTriangle } from 'lucide-react';
 
 interface NewsletterFormData {
   name: string;
   email: string;
 }
 
-type SubmissionState = 'idle' | 'submitting' | 'success' | 'error';
+type NotificationType = 'success' | 'warning' | 'error' | null;
+
+interface NotificationState {
+  type: NotificationType;
+  message: string;
+}
 
 const Newsletter: React.FC = () => {
-  const [submissionState, setSubmissionState] = useState<SubmissionState>('idle');
-  const [errorMessage, setErrorMessage] = useState<string>('');
+  const [isSubmitting, setIsSubmitting] = useState(false);
+  const [notification, setNotification] = useState<NotificationState>({
+    type: null,
+    message: ''
+  });
 
   const {
     register,
@@ -23,12 +31,16 @@ const Newsletter: React.FC = () => {
     mode: 'onChange'
   });
 
+  const dismissNotification = () => {
+    setNotification({ type: null, message: '' });
+  };
+
   const onSubmit = async (data: NewsletterFormData) => {
-    setSubmissionState('submitting');
-    setErrorMessage('');
+    setIsSubmitting(true);
+    setNotification({ type: null, message: '' });
 
     try {
-      const response = await fetch('https://wflow.intellects.tech/webhook-test/subscribe', {
+      const response = await fetch('https://wflow.intellects.tech/webhook/subscribe', {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
@@ -36,26 +48,40 @@ const Newsletter: React.FC = () => {
         body: JSON.stringify(data),
       });
 
-      if (!response.ok) {
-        throw new Error(`Failed to subscribe: ${response.status}`);
+      const responseText = await response.text();
+
+      // Determine notification type based on response
+      if (responseText.startsWith('Email Exists')) {
+        setNotification({
+          type: 'warning',
+          message: responseText
+        });
+      } else if (responseText.startsWith('Invalid Email')) {
+        setNotification({
+          type: 'error',
+          message: responseText
+        });
+      } else if (responseText.startsWith('Subscribed!')) {
+        setNotification({
+          type: 'success',
+          message: responseText
+        });
+        reset(); // Only reset form on successful subscription
+      } else {
+        // Handle unexpected response
+        setNotification({
+          type: 'error',
+          message: responseText || 'An unexpected error occurred. Please try again.'
+        });
       }
 
-      setSubmissionState('success');
-      reset();
-
-      // Reset to idle state after 5 seconds
-      setTimeout(() => {
-        setSubmissionState('idle');
-      }, 5000);
-
     } catch (error) {
-      setSubmissionState('error');
-      setErrorMessage(error instanceof Error ? error.message : 'An unexpected error occurred');
-
-      // Reset to idle state after 5 seconds
-      setTimeout(() => {
-        setSubmissionState('idle');
-      }, 5000);
+      setNotification({
+        type: 'error',
+        message: error instanceof Error ? error.message : 'Failed to connect to the server. Please try again.'
+      });
+    } finally {
+      setIsSubmitting(false);
     }
   };
 
@@ -74,6 +100,35 @@ const Newsletter: React.FC = () => {
   const itemVariants = {
     hidden: { opacity: 0, y: 10 },
     visible: { opacity: 1, y: 0 }
+  };
+
+  // Get notification styles based on type
+  const getNotificationStyles = (type: NotificationType) => {
+    switch (type) {
+      case 'success':
+        return {
+          bgClass: 'bg-gradient-to-r from-success/10 to-success/5',
+          borderClass: 'border-success/30',
+          textClass: 'text-success',
+          icon: <CheckCircle className="w-5 h-5" />
+        };
+      case 'warning':
+        return {
+          bgClass: 'bg-gradient-to-r from-warning/10 to-warning/5',
+          borderClass: 'border-warning/30',
+          textClass: 'text-warning',
+          icon: <AlertTriangle className="w-5 h-5" />
+        };
+      case 'error':
+        return {
+          bgClass: 'bg-gradient-to-r from-error/10 to-error/5',
+          borderClass: 'border-error/30',
+          textClass: 'text-error',
+          icon: <AlertCircle className="w-5 h-5" />
+        };
+      default:
+        return null;
+    }
   };
 
   return (
@@ -105,132 +160,136 @@ const Newsletter: React.FC = () => {
           </motion.div>
 
           <motion.div variants={itemVariants}>
-            {submissionState === 'success' ? (
-              <motion.div
-                initial={{ scale: 0.8, opacity: 0 }}
-                animate={{ scale: 1, opacity: 1 }}
-                className="bg-gradient-to-r from-green-500/10 to-green-400/10 border border-green-500/20 rounded-xl p-8"
-              >
-                <CheckCircle className="w-12 h-12 text-green-400 mx-auto mb-4" />
-                <h3 className="text-xl font-semibold text-green-400 mb-2">Successfully Subscribed!</h3>
-                <p className="text-text-secondary">Thank you for joining our newsletter. You'll receive our latest updates soon.</p>
-              </motion.div>
-            ) : (
-              <form onSubmit={handleSubmit(onSubmit)} className="space-y-6">
-                <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
-                  {/* Name Input */}
+            <form onSubmit={handleSubmit(onSubmit)} className="space-y-6">
+              <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+                {/* Name Input */}
+                <div className="relative">
                   <div className="relative">
-                    <div className="relative">
-                      <User className="absolute left-3 top-1/2 transform -translate-y-1/2 w-5 h-5 text-text-muted" />
-                      <input
-                        {...register('name', {
-                          required: 'Name is required',
-                          minLength: {
-                            value: 2,
-                            message: 'Name must be at least 2 characters'
-                          },
-                          maxLength: {
-                            value: 50,
-                            message: 'Name must be less than 50 characters'
-                          },
-                          pattern: {
-                            value: /^[a-zA-Z\s]+$/,
-                            message: 'Name can only contain letters and spaces'
-                          }
-                        })}
-                        type="text"
-                        placeholder="Your full name"
-                        className={`input pl-10 ${errors.name ? 'border-red-500 focus:border-red-500 focus:ring-red-500' : ''}`}
-                        disabled={submissionState === 'submitting'}
-                      />
-                    </div>
-                    {errors.name && (
-                      <motion.p
-                        initial={{ opacity: 0, y: -10 }}
-                        animate={{ opacity: 1, y: 0 }}
-                        className="text-red-400 text-sm mt-1 flex items-center gap-1"
-                      >
-                        <AlertCircle className="w-4 h-4" />
-                        {errors.name.message}
-                      </motion.p>
-                    )}
+                    <User className="absolute left-3 top-1/2 transform -translate-y-1/2 w-5 h-5 text-text-muted" />
+                    <input
+                      {...register('name', {
+                        required: 'Name is required',
+                        minLength: {
+                          value: 2,
+                          message: 'Name must be at least 2 characters'
+                        },
+                        maxLength: {
+                          value: 50,
+                          message: 'Name must be less than 50 characters'
+                        },
+                        pattern: {
+                          value: /^[a-zA-Z\s]+$/,
+                          message: 'Name can only contain letters and spaces'
+                        }
+                      })}
+                      type="text"
+                      placeholder="Your full name"
+                      className={`input pl-10 ${errors.name ? 'border-red-500 focus:border-red-500 focus:ring-red-500' : ''}`}
+                      disabled={isSubmitting}
+                    />
                   </div>
-
-                  {/* Email Input */}
-                  <div className="relative">
-                    <div className="relative">
-                      <Mail className="absolute left-3 top-1/2 transform -translate-y-1/2 w-5 h-5 text-text-muted" />
-                      <input
-                        {...register('email', {
-                          required: 'Email is required',
-                          pattern: {
-                            value: /^[A-Z0-9._%+-]+@[A-Z0-9.-]+\.[A-Z]{2,}$/i,
-                            message: 'Please enter a valid email address'
-                          }
-                        })}
-                        type="email"
-                        placeholder="your@email.com"
-                        className={`input pl-10 ${errors.email ? 'border-red-500 focus:border-red-500 focus:ring-red-500' : ''}`}
-                        disabled={submissionState === 'submitting'}
-                      />
-                    </div>
-                    {errors.email && (
-                      <motion.p
-                        initial={{ opacity: 0, y: -10 }}
-                        animate={{ opacity: 1, y: 0 }}
-                        className="text-red-400 text-sm mt-1 flex items-center gap-1"
-                      >
-                        <AlertCircle className="w-4 h-4" />
-                        {errors.email.message}
-                      </motion.p>
-                    )}
-                  </div>
+                  {errors.name && (
+                    <motion.p
+                      initial={{ opacity: 0, y: -10 }}
+                      animate={{ opacity: 1, y: 0 }}
+                      className="text-red-400 text-sm mt-1 flex items-center gap-1"
+                    >
+                      <AlertCircle className="w-4 h-4" />
+                      {errors.name.message}
+                    </motion.p>
+                  )}
                 </div>
 
-                {submissionState === 'error' && (
+                {/* Email Input */}
+                <div className="relative">
+                  <div className="relative">
+                    <Mail className="absolute left-3 top-1/2 transform -translate-y-1/2 w-5 h-5 text-text-muted" />
+                    <input
+                      {...register('email', {
+                        required: 'Email is required',
+                        pattern: {
+                          value: /^[A-Z0-9._%+-]+@[A-Z0-9.-]+\.[A-Z]{2,}$/i,
+                          message: 'Please enter a valid email address'
+                        }
+                      })}
+                      type="email"
+                      placeholder="your@email.com"
+                      className={`input pl-10 ${errors.email ? 'border-red-500 focus:border-red-500 focus:ring-red-500' : ''}`}
+                      disabled={isSubmitting}
+                    />
+                  </div>
+                  {errors.email && (
+                    <motion.p
+                      initial={{ opacity: 0, y: -10 }}
+                      animate={{ opacity: 1, y: 0 }}
+                      className="text-red-400 text-sm mt-1 flex items-center gap-1"
+                    >
+                      <AlertCircle className="w-4 h-4" />
+                      {errors.email.message}
+                    </motion.p>
+                  )}
+                </div>
+              </div>
+
+              {/* Notification Display */}
+              <AnimatePresence>
+                {notification.type && (
                   <motion.div
                     initial={{ opacity: 0, y: -10 }}
                     animate={{ opacity: 1, y: 0 }}
-                    className="bg-red-500/10 border border-red-500/20 rounded-lg p-4 text-red-400 text-center flex items-center justify-center gap-2"
+                    exit={{ opacity: 0, y: -10 }}
+                    className={`relative rounded-xl p-4 border ${getNotificationStyles(notification.type)?.bgClass} ${getNotificationStyles(notification.type)?.borderClass}`}
                   >
-                    <AlertCircle className="w-5 h-5" />
-                    {errorMessage || 'Failed to subscribe. Please try again.'}
+                    <div className={`flex items-center gap-3 ${getNotificationStyles(notification.type)?.textClass}`}>
+                      {getNotificationStyles(notification.type)?.icon}
+                      <span className="flex-1 text-left font-medium">
+                        {notification.message}
+                      </span>
+                      <button
+                        type="button"
+                        onClick={dismissNotification}
+                        className={`p-1 rounded-lg hover:bg-white/10 transition-colors ${getNotificationStyles(notification.type)?.textClass}`}
+                        aria-label="Dismiss notification"
+                      >
+                        <X className="w-4 h-4" />
+                      </button>
+                    </div>
                   </motion.div>
                 )}
+              </AnimatePresence>
 
-                <motion.button
-                  type="submit"
-                  disabled={!isValid || submissionState === 'submitting'}
-                  className={`btn-primary w-full md:w-auto px-8 py-4 text-lg font-semibold flex items-center justify-center gap-3 mx-auto transition-all duration-300 ${
-                    !isValid || submissionState === 'submitting'
-                      ? 'opacity-50 cursor-not-allowed'
-                      : 'hover:shadow-lg hover:shadow-primary/25'
-                  }`}
-                  whileHover={isValid && submissionState !== 'submitting' ? { scale: 1.02 } : {}}
-                  whileTap={isValid && submissionState !== 'submitting' ? { scale: 0.98 } : {}}
-                >
-                  {submissionState === 'submitting' ? (
-                    <>
-                      <motion.div
-                        animate={{ rotate: 360 }}
-                        transition={{ duration: 1, repeat: Infinity, ease: "linear" }}
-                        className="w-5 h-5 border-2 border-white/30 border-t-white rounded-full"
-                      />
-                      Subscribing...
-                    </>
-                  ) : (
-                    <>
-                      <Send className="w-5 h-5" />
-                      Subscribe to Newsletter
-                    </>
-                  )}
-                </motion.button>
+              <motion.button
+                type="submit"
+                disabled={!isValid || isSubmitting}
+                className={`btn-primary w-full md:w-auto px-8 py-4 text-lg font-semibold flex items-center justify-center gap-3 mx-auto transition-all duration-300 ${
+                  !isValid || isSubmitting
+                    ? 'opacity-50 cursor-not-allowed'
+                    : 'hover:shadow-lg hover:shadow-primary/25'
+                }`}
+                whileHover={isValid && !isSubmitting ? { scale: 1.02 } : {}}
+                whileTap={isValid && !isSubmitting ? { scale: 0.98 } : {}}
+              >
+                {isSubmitting ? (
+                  <>
+                    <motion.div
+                      animate={{ rotate: 360 }}
+                      transition={{ duration: 1, repeat: Infinity, ease: "linear" }}
+                      className="w-5 h-5 border-2 border-white/30 border-t-white rounded-full"
+                    />
+                    Subscribing...
+                  </>
+                ) : (
+                  <>
+                    <Send className="w-5 h-5" />
+                    Subscribe to Newsletter
+                  </>
+                )}
+              </motion.button>
 
-                <p className="text-sm text-text-muted text-center">
-                  We respect your privacy. Unsubscribe at any time.
-                </p>
-              </form>
-            )}
+              <p className="text-sm text-text-muted text-center">
+                We respect your privacy. Unsubscribe at any time.
+              </p>
+            </form>
           </motion.div>
         </motion.div>
       </div>
