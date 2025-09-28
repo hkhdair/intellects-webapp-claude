@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import { Menu, X } from 'lucide-react';
 import { motion } from 'framer-motion';
+import { Link } from 'react-router-dom';
 
 const Header: React.FC = () => {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
@@ -20,9 +21,10 @@ const Header: React.FC = () => {
   }, []);
 
   const navLinks = [
-    { name: 'Home', href: '#' },
-    { name: 'Services', href: '#services' },
-    { name: 'Contact', href: '#contact' }
+    { name: 'Home', href: '#', isRoute: false },
+    { name: 'Services', href: '#services', isRoute: false },
+    { name: 'Blog', href: '/blog', isRoute: true },
+    { name: 'Contact', href: '#contact', isRoute: false }
   ];
 
   return (
@@ -39,14 +41,25 @@ const Header: React.FC = () => {
         {/* Desktop Navigation */}
         <nav className="hidden md:flex gap-8" role="navigation" aria-label="Main navigation">
           {navLinks.map((link) => (
-            <a 
-              key={link.name} 
-              href={link.href} 
-              className="text-text-secondary hover:text-white transition-colors"
-              aria-label={`Navigate to ${link.name} section`}
-            >
-              {link.name}
-            </a>
+            link.isRoute ? (
+              <Link
+                key={link.name}
+                to={link.href}
+                className="text-text-secondary hover:text-white transition-colors"
+                aria-label={`Navigate to ${link.name} section`}
+              >
+                {link.name}
+              </Link>
+            ) : (
+              <a
+                key={link.name}
+                href={link.href}
+                className="text-text-secondary hover:text-white transition-colors"
+                aria-label={`Navigate to ${link.name} section`}
+              >
+                {link.name}
+              </a>
+            )
           ))}
           <a href="#contact" className="btn-primary" aria-label="Contact us for consultation">
             Get in Touch
@@ -72,15 +85,27 @@ const Header: React.FC = () => {
           >
             <nav className="flex flex-col gap-4" role="navigation" aria-label="Mobile navigation">
               {navLinks.map((link) => (
-                <a 
-                  key={link.name} 
-                  href={link.href} 
-                  className="text-text-secondary hover:text-white py-2 transition-colors"
-                  aria-label={`Navigate to ${link.name} section`}
-                  onClick={() => setIsMenuOpen(false)}
-                >
-                  {link.name}
-                </a>
+                link.isRoute ? (
+                  <Link
+                    key={link.name}
+                    to={link.href}
+                    className="text-text-secondary hover:text-white py-2 transition-colors"
+                    aria-label={`Navigate to ${link.name} section`}
+                    onClick={() => setIsMenuOpen(false)}
+                  >
+                    {link.name}
+                  </Link>
+                ) : (
+                  <a
+                    key={link.name}
+                    href={link.href}
+                    className="text-text-secondary hover:text-white py-2 transition-colors"
+                    aria-label={`Navigate to ${link.name} section`}
+                    onClick={() => setIsMenuOpen(false)}
+                  >
+                    {link.name}
+                  </a>
+                )
               ))}
               <a 
                 href="#contact" 
