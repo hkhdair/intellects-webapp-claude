@@ -1,5 +1,5 @@
 import React from 'react';
-import { Github, Linkedin, Twitter } from 'lucide-react';
+// import { Github, Linkedin, Twitter } from 'lucide-react'; // Commented out - social media icons not in use
 
 const Footer: React.FC = () => {
   const year = new Date().getFullYear();
@@ -17,7 +17,8 @@ const Footer: React.FC = () => {
             </p>
           </div>
           
-          <div className="flex gap-4">
+          {/* Social Media Links - Commented Out */}
+          {/* <div className="flex gap-4">
             <a 
               href="#" 
               className="text-text-secondary hover:text-primary transition-colors p-2"
@@ -39,7 +40,7 @@ const Footer: React.FC = () => {
             >
               <Twitter size={20} />
             </a>
-          </div>
+          </div> */}
         </div>
         
         <div className="mt-8 pt-8 border-t border-gray-800 text-text-muted text-sm text-center">

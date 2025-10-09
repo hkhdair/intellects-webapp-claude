@@ -1,9 +1,9 @@
-import React, { useState, useEffect } from 'react';
+import { useState, useEffect } from 'react';
+import { Link } from 'react-router-dom';
 import { Menu, X } from 'lucide-react';
 import { motion } from 'framer-motion';
-import { Link } from 'react-router-dom';
 
-const Header: React.FC = () => {
+const Header = () => {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
   const [scrolled, setScrolled] = useState(false);
 
@@ -21,7 +21,7 @@ const Header: React.FC = () => {
   }, []);
 
   const navLinks = [
-    { name: 'Home', href: '#', isRoute: false },
+    { name: 'Home', href: '/', isRoute: true },
     { name: 'Services', href: '#services', isRoute: false },
     { name: 'Blog', href: '/blog', isRoute: true },
     { name: 'Contact', href: '#contact', isRoute: false }
@@ -61,9 +61,6 @@ const Header: React.FC = () => {
               </a>
             )
           ))}
-          <a href="#contact" className="btn-primary" aria-label="Contact us for consultation">
-            Get in Touch
-          </a>
         </nav>
 
         {/* Mobile Menu Button */}
@@ -107,14 +104,6 @@ const Header: React.FC = () => {
                   </a>
                 )
               ))}
-              <a 
-                href="#contact" 
-                className="btn-primary w-full text-center"
-                aria-label="Contact us for consultation"
-                onClick={() => setIsMenuOpen(false)}
-              >
-                Get in Touch
-              </a>
             </nav>
           </motion.div>
         )}
