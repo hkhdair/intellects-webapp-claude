@@ -23,7 +23,6 @@ const Header = () => {
   const navLinks = [
     { name: 'Home', href: '/', isRoute: true },
     { name: 'Services', href: '#services', isRoute: false },
-    { name: 'Blog', href: '/blog', isRoute: true },
     { name: 'Contact', href: '#contact', isRoute: false }
   ];
 
