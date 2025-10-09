@@ -1,0 +1,6 @@
+# Block blog pages from search engines
+/blog/*
+  X-Robots-Tag: noindex, nofollow
+
+/blog
+  X-Robots-Tag: noindex, nofollow

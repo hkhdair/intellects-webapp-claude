@@ -11,3 +11,7 @@ Crawl-delay: 1
 Disallow: /admin/
 Disallow: /.env
 Disallow: /api/internal/
+
+# Block blog pages (removed functionality)
+Disallow: /blog/
+Disallow: /blog
