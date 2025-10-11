@@ -1,51 +1,61 @@
-import { JobSearchResponse } from '../types/job';
-
-const RAPIDAPI_KEY = '9704b8c382msh5ddedc67e7da4d5p108e70jsn650e7eb935ae';
-const RAPIDAPI_HOST = 'jsearch.p.rapidapi.com';
+import { JobListing } from '../types/job';
 
 export interface JobSearchParams {
   query: string;
-  page?: number;
-  num_pages?: number;
   location?: string;
-  date_posted?: 'all' | 'today' | 'week' | 'month';
 }
 
-export async function searchJobs(params: JobSearchParams): Promise<JobSearchResponse> {
-  const { query, page = 1, num_pages = 1, location = 'us', date_posted = 'all' } = params;
+export async function searchJobs(params: JobSearchParams): Promise<JobListing[]> {
+  const { query, location = 'australia' } = params;
 
-  const url = new URL('https://jsearch.p.rapidapi.com/search');
-  
-  // Handle remote location differently
-  if (location === 'remote') {
-    // For remote, add "remote" to query and set remote_jobs_only flag
-    url.searchParams.append('query', `${query} remote`);
-    url.searchParams.append('remote_jobs_only', 'true');
-  } else {
-    // For specific countries, just use the query and set country
-    url.searchParams.append('query', query);
-    url.searchParams.append('country', location);
-  }
-  
-  url.searchParams.append('page', page.toString());
-  url.searchParams.append('num_pages', num_pages.toString());
-  url.searchParams.append('date_posted', date_posted);
+  // Build webhook URL with query parameter
+  const url = new URL('https://wflow.intellects.tech/webhook-test/get_jobs');
+  url.searchParams.append('search', query.toLowerCase());
 
   try {
     const response = await fetch(url.toString(), {
       method: 'GET',
-      headers: {
-        'x-rapidapi-key': RAPIDAPI_KEY,
-        'x-rapidapi-host': RAPIDAPI_HOST,
-      },
     });
 
     if (!response.ok) {
-      throw new Error(`API Error: ${response.status} ${response.statusText}`);
+      // Try to parse error message from response
+      let errorMessage = `API Error: ${response.status} ${response.statusText}`;
+      try {
+        const errorData = await response.json();
+        if (errorData.message) {
+          errorMessage = `${errorData.message}. ${errorData.hint || ''}`;
+        }
+      } catch {
+        // If parsing fails, use default message
+      }
+      throw new Error(errorMessage);
     }
 
-    const data: JobSearchResponse = await response.json();
-    return data;
+    const data = await response.json();
+    
+    // Check if response is an array
+    if (!Array.isArray(data)) {
+      throw new Error('Invalid response format: Expected an array of jobs');
+    }
+    
+    // Unwrap the 'json' property from each job object if it exists
+    const jobs: JobListing[] = data.map((item: any) => {
+      // If the job data is wrapped in a 'json' property, unwrap it
+      return item.json || item;
+    });
+    
+    // Filter by location if needed (currently only Australia is active)
+    if (location === 'australia') {
+      // Return all jobs for Australia
+      return jobs;
+    } else if (location === 'remote') {
+      // Remote filtering - currently deactivated but keeping logic for future
+      return jobs.filter(job => 
+        job.location.toLowerCase().includes('remote')
+      );
+    }
+    
+    return jobs;
   } catch (error) {
     console.error('Job search error:', error);
     throw error;

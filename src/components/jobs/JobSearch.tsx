@@ -8,42 +8,54 @@ interface JobSearchProps {
 
 export interface SearchFilters {
   location: string;
-  date_posted: 'all' | 'today' | 'week' | 'month';
 }
 
+const JOB_TYPES = [
+  { value: 'business analyst', label: 'Business Analyst' },
+  { value: 'data analyst', label: 'Data Analyst' },
+  { value: 'data scientist', label: 'Data Scientist' },
+  { value: 'software developer', label: 'Software Developer' },
+  { value: 'cybersecurity analyst', label: 'Cybersecurity Analyst' },
+  { value: 'security architect', label: 'Security Architect' },
+];
+
 const JobSearch: React.FC<JobSearchProps> = ({ onSearch, loading }) => {
-  const [query, setQuery] = useState('');
+  const [selectedJob, setSelectedJob] = useState('');
   const [showFilters, setShowFilters] = useState(false);
   const [filters, setFilters] = useState<SearchFilters>({
-    location: 'remote',
-    date_posted: 'all',
+    location: 'australia',
   });
 
   const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault();
-    if (query.trim()) {
-      onSearch(query, filters);
+    if (selectedJob) {
+      onSearch(selectedJob, filters);
     }
   };
 
   return (
     <div className="bg-background-light rounded-xl p-6 border border-gray-700">
       <form onSubmit={handleSubmit} className="space-y-4">
-        {/* Search Input */}
+        {/* Search Dropdown */}
         <div className="flex gap-3">
           <div className="flex-1 relative">
             <Search
               className="absolute left-4 top-1/2 -translate-y-1/2 text-text-muted"
               size={20}
             />
-            <input
-              type="text"
-              value={query}
-              onChange={(e) => setQuery(e.target.value)}
-              placeholder="Search for jobs (e.g., 'Software Developer', 'Product Manager')"
+            <select
+              value={selectedJob}
+              onChange={(e) => setSelectedJob(e.target.value)}
               className="input pl-12 w-full"
               disabled={loading}
-            />
+            >
+              <option value="">Select a job type...</option>
+              {JOB_TYPES.map((job) => (
+                <option key={job.value} value={job.value}>
+                  {job.label}
+                </option>
+              ))}
+            </select>
           </div>
           
           <button
@@ -58,7 +70,7 @@ const JobSearch: React.FC<JobSearchProps> = ({ onSearch, loading }) => {
           <button
             type="submit"
             className="btn-primary px-8"
-            disabled={loading || !query.trim()}
+            disabled={loading || !selectedJob}
           >
             {loading ? 'Searching...' : 'Search'}
           </button>
@@ -66,7 +78,7 @@ const JobSearch: React.FC<JobSearchProps> = ({ onSearch, loading }) => {
 
         {/* Filters */}
         {showFilters && (
-          <div className="grid grid-cols-1 md:grid-cols-2 gap-4 pt-4 border-t border-gray-700">
+          <div className="pt-4 border-t border-gray-700">
             <div>
               <label className="block text-sm font-medium text-text-secondary mb-2">
                 Location
@@ -77,31 +89,8 @@ const JobSearch: React.FC<JobSearchProps> = ({ onSearch, loading }) => {
                 className="input"
                 disabled={loading}
               >
-                <option value="remote">Remote</option>
-                <option value="us">United States</option>
-                <option value="uk">United Kingdom</option>
-                <option value="ca">Canada</option>
-                <option value="au">Australia</option>
-                <option value="de">Germany</option>
-                <option value="fr">France</option>
-                <option value="in">India</option>
-              </select>
-            </div>
-
-            <div>
-              <label className="block text-sm font-medium text-text-secondary mb-2">
-                Date Posted
-              </label>
-              <select
-                value={filters.date_posted}
-                onChange={(e) => setFilters({ ...filters, date_posted: e.target.value as SearchFilters['date_posted'] })}
-                className="input"
-                disabled={loading}
-              >
-                <option value="all">All Time</option>
-                <option value="today">Today</option>
-                <option value="week">Past Week</option>
-                <option value="month">Past Month</option>
+                <option value="australia">Australia</option>
+                <option value="remote" disabled>Remote (Coming Soon)</option>
               </select>
             </div>
           </div>

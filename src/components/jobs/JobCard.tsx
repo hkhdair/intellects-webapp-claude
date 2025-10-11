@@ -1,6 +1,6 @@
 import React from 'react';
 import { motion } from 'framer-motion';
-import { MapPin, Briefcase, Calendar, DollarSign, Building2 } from 'lucide-react';
+import { MapPin, Briefcase, Calendar, DollarSign, Building2, Users } from 'lucide-react';
 import { JobListing } from '../../types/job';
 
 interface JobCardProps {
@@ -9,25 +9,6 @@ interface JobCardProps {
 }
 
 const JobCard: React.FC<JobCardProps> = ({ job, onClick }) => {
-  const formatDate = (dateString: string) => {
-    const date = new Date(dateString);
-    const now = new Date();
-    const diffInDays = Math.floor((now.getTime() - date.getTime()) / (1000 * 60 * 60 * 24));
-    
-    if (diffInDays === 0) return 'Today';
-    if (diffInDays === 1) return 'Yesterday';
-    if (diffInDays < 7) return `${diffInDays} days ago`;
-    if (diffInDays < 30) return `${Math.floor(diffInDays / 7)} weeks ago`;
-    return date.toLocaleDateString();
-  };
-
-  const formatSalary = () => {
-    if (job.job_min_salary && job.job_max_salary) {
-      return `$${(job.job_min_salary / 1000).toFixed(0)}K - $${(job.job_max_salary / 1000).toFixed(0)}K`;
-    }
-    return null;
-  };
-
   return (
     <motion.div
       initial={{ opacity: 0, y: 20 }}
@@ -38,10 +19,10 @@ const JobCard: React.FC<JobCardProps> = ({ job, onClick }) => {
       onClick={onClick}
     >
       <div className="flex items-start gap-4">
-        {job.employer_logo ? (
+        {job.company_logo_url ? (
           <img
-            src={job.employer_logo}
-            alt={`${job.employer_name} logo`}
+            src={job.company_logo_url}
+            alt={`${job.company_name} logo`}
             className="w-12 h-12 rounded-lg object-contain bg-white p-1"
           />
         ) : (
@@ -57,54 +38,51 @@ const JobCard: React.FC<JobCardProps> = ({ job, onClick }) => {
           
           <div className="flex items-center gap-2 text-text-secondary mb-3">
             <Building2 size={16} />
-            <span className="font-medium">{job.employer_name}</span>
+            <span className="font-medium">{job.company_name}</span>
           </div>
 
           <div className="flex flex-wrap gap-4 text-sm text-text-secondary mb-3">
             <div className="flex items-center gap-1">
               <MapPin size={16} className="text-primary" />
-              <span>
-                {job.job_is_remote 
-                  ? 'Remote' 
-                  : `${job.job_city ? job.job_city + ', ' : ''}${job.job_state || job.job_country}`
-                }
-              </span>
+              <span>{job.location}</span>
             </div>
             
             <div className="flex items-center gap-1">
               <Briefcase size={16} className="text-primary" />
-              <span>{job.job_employment_type}</span>
+              <span>{job.employment_type}</span>
             </div>
             
             <div className="flex items-center gap-1">
               <Calendar size={16} className="text-primary" />
-              <span>{formatDate(job.job_posted_at_datetime_utc)}</span>
+              <span>{job.time_posted}</span>
             </div>
             
-            {formatSalary() && (
+            {job.salary_range && (
               <div className="flex items-center gap-1">
                 <DollarSign size={16} className="text-primary" />
-                <span>{formatSalary()}</span>
+                <span>{job.salary_range}</span>
               </div>
             )}
           </div>
 
-          <p className="text-text-secondary line-clamp-2 mb-3">
-            {job.job_description.substring(0, 200)}...
-          </p>
-
-          {job.job_benefits && job.job_benefits.length > 0 && (
-            <div className="flex flex-wrap gap-2">
-              {job.job_benefits.slice(0, 3).map((benefit, index) => (
-                <span
-                  key={index}
-                  className="px-3 py-1 bg-primary/10 text-primary text-xs rounded-full"
-                >
-                  {benefit.replace('_', ' ')}
-                </span>
-              ))}
-            </div>
+          {job.job_description && (
+            <p className="text-text-secondary line-clamp-2 mb-3">
+              {job.job_description.substring(0, 200)}...
+            </p>
           )}
+
+          <div className="flex flex-wrap gap-2">
+            {job.seniority_level && (
+              <span className="px-3 py-1 bg-primary/10 text-primary text-xs rounded-full">
+                {job.seniority_level}
+              </span>
+            )}
+            {job.job_function && (
+              <span className="px-3 py-1 bg-secondary/10 text-secondary text-xs rounded-full">
+                {job.job_function}
+              </span>
+            )}
+          </div>
         </div>
       </div>
     </motion.div>

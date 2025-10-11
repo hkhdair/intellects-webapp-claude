@@ -1,6 +1,6 @@
 import React from 'react';
 import { motion } from 'framer-motion';
-import { X, MapPin, Briefcase, Calendar, DollarSign, Building2, ExternalLink, FileText } from 'lucide-react';
+import { X, MapPin, Briefcase, Calendar, DollarSign, Building2, ExternalLink, FileText, Users, Award, Layers } from 'lucide-react';
 import { JobListing } from '../../types/job';
 
 interface JobDetailsProps {
@@ -10,22 +10,6 @@ interface JobDetailsProps {
 }
 
 const JobDetails: React.FC<JobDetailsProps> = ({ job, onClose, onScreenResume }) => {
-  const formatDate = (dateString: string) => {
-    const date = new Date(dateString);
-    return date.toLocaleDateString('en-US', { 
-      year: 'numeric', 
-      month: 'long', 
-      day: 'numeric' 
-    });
-  };
-
-  const formatSalary = () => {
-    if (job.job_min_salary && job.job_max_salary) {
-      return `$${(job.job_min_salary / 1000).toFixed(0)}K - $${(job.job_max_salary / 1000).toFixed(0)}K ${job.job_salary_period || 'per year'}`;
-    }
-    return 'Not specified';
-  };
-
   return (
     <motion.div
       initial={{ opacity: 0 }}
@@ -44,10 +28,10 @@ const JobDetails: React.FC<JobDetailsProps> = ({ job, onClose, onScreenResume })
         {/* Header */}
         <div className="flex items-start justify-between p-6 border-b border-gray-700">
           <div className="flex items-start gap-4 flex-1">
-            {job.employer_logo ? (
+            {job.company_logo_url ? (
               <img
-                src={job.employer_logo}
-                alt={`${job.employer_name} logo`}
+                src={job.company_logo_url}
+                alt={`${job.company_name} logo`}
                 className="w-16 h-16 rounded-lg object-contain bg-white p-2"
               />
             ) : (
@@ -62,7 +46,14 @@ const JobDetails: React.FC<JobDetailsProps> = ({ job, onClose, onScreenResume })
               </h2>
               <div className="flex items-center gap-2 text-text-secondary mb-3">
                 <Building2 size={18} />
-                <span className="font-medium text-lg">{job.employer_name}</span>
+                <a 
+                  href={job.company_url} 
+                  target="_blank" 
+                  rel="noopener noreferrer"
+                  className="font-medium text-lg hover:text-primary transition-colors"
+                >
+                  {job.company_name}
+                </a>
               </div>
             </div>
           </div>
@@ -82,81 +73,69 @@ const JobDetails: React.FC<JobDetailsProps> = ({ job, onClose, onScreenResume })
           <div className="grid grid-cols-1 md:grid-cols-2 gap-4 mb-6">
             <div className="flex items-center gap-2 text-text-secondary">
               <MapPin size={18} className="text-primary" />
-              <span>
-                {job.job_is_remote 
-                  ? 'Remote' 
-                  : `${job.job_city ? job.job_city + ', ' : ''}${job.job_state || job.job_country}`
-                }
-              </span>
+              <span>{job.location}</span>
             </div>
             
             <div className="flex items-center gap-2 text-text-secondary">
               <Briefcase size={18} className="text-primary" />
-              <span>{job.job_employment_type}</span>
+              <span>{job.employment_type}</span>
             </div>
             
             <div className="flex items-center gap-2 text-text-secondary">
               <Calendar size={18} className="text-primary" />
-              <span>Posted: {formatDate(job.job_posted_at_datetime_utc)}</span>
+              <span>Posted: {job.time_posted}</span>
             </div>
             
             <div className="flex items-center gap-2 text-text-secondary">
               <DollarSign size={18} className="text-primary" />
-              <span>{formatSalary()}</span>
+              <span>{job.salary_range || 'Not specified'}</span>
             </div>
-          </div>
 
-          {/* Benefits */}
-          {job.job_benefits && job.job_benefits.length > 0 && (
-            <div className="mb-6">
-              <h3 className="text-lg font-semibold text-text-primary mb-3">Benefits</h3>
-              <div className="flex flex-wrap gap-2">
-                {job.job_benefits.map((benefit, index) => (
-                  <span
-                    key={index}
-                    className="px-3 py-1 bg-primary/10 text-primary text-sm rounded-full"
-                  >
-                    {benefit.replace('_', ' ')}
-                  </span>
-                ))}
+            {job.seniority_level && (
+              <div className="flex items-center gap-2 text-text-secondary">
+                <Award size={18} className="text-primary" />
+                <span>{job.seniority_level}</span>
               </div>
-            </div>
-          )}
+            )}
 
-          {/* Job Highlights */}
-          {job.job_highlights && (
-            <div className="space-y-4 mb-6">
-              {job.job_highlights.Qualifications && (
-                <div>
-                  <h3 className="text-lg font-semibold text-text-primary mb-3">Qualifications</h3>
-                  <ul className="list-disc list-inside space-y-2 text-text-secondary">
-                    {job.job_highlights.Qualifications.slice(0, 8).map((qual, index) => (
-                      <li key={index}>{qual}</li>
-                    ))}
-                  </ul>
-                </div>
-              )}
+            {job.job_function && (
+              <div className="flex items-center gap-2 text-text-secondary">
+                <Layers size={18} className="text-primary" />
+                <span>{job.job_function}</span>
+              </div>
+            )}
 
-              {job.job_highlights.Responsibilities && (
-                <div>
-                  <h3 className="text-lg font-semibold text-text-primary mb-3">Responsibilities</h3>
-                  <ul className="list-disc list-inside space-y-2 text-text-secondary">
-                    {job.job_highlights.Responsibilities.slice(0, 8).map((resp, index) => (
-                      <li key={index}>{resp}</li>
-                    ))}
-                  </ul>
-                </div>
-              )}
-            </div>
-          )}
+            {job.industries && (
+              <div className="flex items-center gap-2 text-text-secondary">
+                <Building2 size={18} className="text-primary" />
+                <span>{job.industries}</span>
+              </div>
+            )}
+          </div>
 
           {/* Full Description */}
           <div className="mb-6">
             <h3 className="text-lg font-semibold text-text-primary mb-3">Job Description</h3>
-            <div className="text-text-secondary whitespace-pre-line leading-relaxed">
-              {job.job_description}
+            <div className="text-text-secondary leading-relaxed bg-white/5 p-4 rounded-lg">
+              {job.job_description_raw_html ? (
+                <div 
+                  className="prose prose-invert prose-sm max-w-none job-description-content"
+                  dangerouslySetInnerHTML={{ __html: job.job_description_raw_html }}
+                />
+              ) : job.job_description ? (
+                <p className="whitespace-pre-line">{job.job_description}</p>
+              ) : (
+                <p className="text-text-muted">No description available</p>
+              )}
             </div>
           </div>
+          
+          <style>{`
+            .job-description-content .show-more-less-html__button,
+            .job-description-content button {
+              display: none !important;
+            }
+          `}</style>
         </div>
 
         {/* Footer Actions */}
@@ -170,13 +149,13 @@ const JobDetails: React.FC<JobDetailsProps> = ({ job, onClose, onScreenResume })
           </button>
           
           <a
-            href={job.job_apply_link}
+            href={job.apply_url}
             target="_blank"
             rel="noopener noreferrer"
             className="flex-1 btn-outline flex items-center justify-center gap-2"
           >
             <ExternalLink size={20} />
-            Apply on {job.job_publisher}
+            {job.easy_apply ? 'Easy Apply on LinkedIn' : 'View on LinkedIn'}
           </a>
         </div>
       </motion.div>

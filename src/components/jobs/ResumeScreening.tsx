@@ -64,16 +64,15 @@ const ResumeScreening: React.FC<ResumeScreeningProps> = ({ job, onClose }) => {
       // Append the resume file
       formData.append('resume_file', uploadedFile);
       
-      // Append job details
+      // Append job details (updated for new data structure)
       formData.append('job_id', job.job_id);
       formData.append('job_title', job.job_title);
-      formData.append('employer_name', job.employer_name);
+      formData.append('company_name', job.company_name);
       formData.append('job_description', job.job_description);
-      
-      // Append job highlights as JSON string
-      if (job.job_highlights) {
-        formData.append('job_highlights', JSON.stringify(job.job_highlights));
-      }
+      formData.append('location', job.location);
+      formData.append('employment_type', job.employment_type);
+      formData.append('seniority_level', job.seniority_level);
+      formData.append('job_function', job.job_function);
       
       // Submit to webhook and wait for response
       setLoading(false);
@@ -154,7 +153,7 @@ const ResumeScreening: React.FC<ResumeScreeningProps> = ({ job, onClose }) => {
               {/* Job Info */}
               <div className="bg-background-dark rounded-lg p-4 mb-6">
                 <h3 className="font-semibold text-text-primary mb-1">{job.job_title}</h3>
-                <p className="text-text-secondary text-sm">{job.employer_name}</p>
+                <p className="text-text-secondary text-sm">{job.company_name}</p>
               </div>
 
           {/* Upload Area */}

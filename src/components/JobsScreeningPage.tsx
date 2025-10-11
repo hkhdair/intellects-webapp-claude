@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import { Link } from 'react-router-dom';
 import { motion, AnimatePresence } from 'framer-motion';
-import { ArrowLeft, Briefcase, Loader2, AlertCircle } from 'lucide-react';
+import { ArrowLeft, Briefcase, Loader2, AlertCircle, ChevronLeft, ChevronRight } from 'lucide-react';
 import Header from './Header';
 import Footer from './Footer';
 import JobSearch, { SearchFilters } from './jobs/JobSearch';
@@ -11,6 +11,8 @@ import ResumeScreening from './jobs/ResumeScreening';
 import { searchJobs } from '../utils/jobApi';
 import { JobListing } from '../types/job';
 
+const JOBS_PER_PAGE = 10;
+
 const JobsScreeningPage: React.FC = () => {
   const [jobs, setJobs] = useState<JobListing[]>([]);
   const [selectedJob, setSelectedJob] = useState<JobListing | null>(null);
@@ -18,28 +20,31 @@ const JobsScreeningPage: React.FC = () => {
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState<string | null>(null);
   const [hasSearched, setHasSearched] = useState(false);
+  const [currentPage, setCurrentPage] = useState(1);
 
   const handleSearch = async (query: string, filters: SearchFilters) => {
     setLoading(true);
     setError(null);
     setHasSearched(true);
+    setCurrentPage(1); // Reset to first page on new search
     
     try {
-      const response = await searchJobs({
+      console.log('Searching for:', query, 'with filters:', filters);
+      const data = await searchJobs({
         query,
-        page: 1,
-        num_pages: 1,
         location: filters.location,
-        date_posted: filters.date_posted,
       });
 
-      setJobs(response.data);
+      console.log('Received jobs:', data.length);
+      console.log('First job sample:', data[0]); // Debug: see actual structure
+      setJobs(data);
 
-      if (response.data.length === 0) {
+      if (data.length === 0) {
         setError('No jobs found. Try adjusting your search criteria.');
       }
     } catch (err) {
-      setError('Failed to fetch jobs. Please try again later.');
+      const errorMessage = err instanceof Error ? err.message : 'Failed to fetch jobs. Please try again later.';
+      setError(errorMessage);
       console.error('Search error:', err);
     } finally {
       setLoading(false);
@@ -52,6 +57,26 @@ const JobsScreeningPage: React.FC = () => {
 
   const handleScreenResume = () => {
     setShowResumeScreening(true);
+  };
+
+  // Pagination logic
+  const totalPages = Math.ceil(jobs.length / JOBS_PER_PAGE);
+  const startIndex = (currentPage - 1) * JOBS_PER_PAGE;
+  const endIndex = startIndex + JOBS_PER_PAGE;
+  const currentJobs = jobs.slice(startIndex, endIndex);
+
+  const goToNextPage = () => {
+    if (currentPage < totalPages) {
+      setCurrentPage(currentPage + 1);
+      window.scrollTo({ top: 0, behavior: 'smooth' });
+    }
+  };
+
+  const goToPrevPage = () => {
+    if (currentPage > 1) {
+      setCurrentPage(currentPage - 1);
+      window.scrollTo({ top: 0, behavior: 'smooth' });
+    }
   };
 
   return (
@@ -131,10 +156,15 @@ const JobsScreeningPage: React.FC = () => {
                 <h2 className="text-2xl font-semibold text-text-primary">
                   {jobs.length} {jobs.length === 1 ? 'Job' : 'Jobs'} Found
                 </h2>
+                {totalPages > 1 && (
+                  <div className="text-text-secondary">
+                    Page {currentPage} of {totalPages}
+                  </div>
+                )}
               </div>
 
-              <div className="grid gap-4">
-                {jobs.map((job) => (
+              <div className="grid gap-4 mb-6">
+                {currentJobs.map((job) => (
                   <JobCard
                     key={job.job_id}
                     job={job}
@@ -142,6 +172,48 @@ const JobsScreeningPage: React.FC = () => {
                   />
                 ))}
               </div>
+
+              {/* Pagination Controls */}
+              {totalPages > 1 && (
+                <div className="flex items-center justify-center gap-4">
+                  <button
+                    onClick={goToPrevPage}
+                    disabled={currentPage === 1}
+                    className="btn-outline px-4 py-2 flex items-center gap-2 disabled:opacity-50 disabled:cursor-not-allowed"
+                  >
+                    <ChevronLeft size={20} />
+                    Previous
+                  </button>
+                  
+                  <div className="flex items-center gap-2">
+                    {Array.from({ length: totalPages }, (_, i) => i + 1).map((pageNum) => (
+                      <button
+                        key={pageNum}
+                        onClick={() => {
+                          setCurrentPage(pageNum);
+                          window.scrollTo({ top: 0, behavior: 'smooth' });
+                        }}
+                        className={`w-10 h-10 rounded-lg flex items-center justify-center transition-all ${
+                          pageNum === currentPage
+                            ? 'bg-primary text-white font-semibold'
+                            : 'bg-background-light text-text-secondary hover:bg-primary/20'
+                        }`}
+                      >
+                        {pageNum}
+                      </button>
+                    ))}
+                  </div>
+                  
+                  <button
+                    onClick={goToNextPage}
+                    disabled={currentPage === totalPages}
+                    className="btn-outline px-4 py-2 flex items-center gap-2 disabled:opacity-50 disabled:cursor-not-allowed"
+                  >
+                    Next
+                    <ChevronRight size={20} />
+                  </button>
+                </div>
+              )}
             </motion.div>
           )}
 
