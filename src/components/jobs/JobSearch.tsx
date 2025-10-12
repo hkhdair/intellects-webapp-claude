@@ -16,7 +16,7 @@ const JOB_TYPES = [
   { value: 'data scientist', label: 'Data Scientist' },
   { value: 'software developer', label: 'Software Developer' },
   { value: 'cybersecurity analyst', label: 'Cybersecurity Analyst' },
-  { value: 'security architect', label: 'Security Architect' },
+  { value: 'ict', label: 'ICT' },
 ];
 
 const JobSearch: React.FC<JobSearchProps> = ({ onSearch, loading }) => {
