@@ -78,7 +78,7 @@ const ResumeScreening: React.FC<ResumeScreeningProps> = ({ job, onClose }) => {
       setLoading(false);
       setProcessing(true);
       
-      const response = await fetch('https://wflow.intellects.tech/webhook-test/submit-resume', {
+      const response = await fetch('https://wflow.intellects.tech/webhook/submit-resume', {
         method: 'POST',
         body: formData,
       });

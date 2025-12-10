@@ -9,7 +9,7 @@ export async function searchJobs(params: JobSearchParams): Promise<JobListing[]>
   const { query, location = 'australia' } = params;
 
   // Build webhook URL with query parameter
-  const url = new URL('https://wflow.intellects.tech/webhook-test/get_jobs');
+  const url = new URL('https://wflow.intellects.tech/webhook/get_jobs');
   url.searchParams.append('search', query.toLowerCase());
 
   try {
