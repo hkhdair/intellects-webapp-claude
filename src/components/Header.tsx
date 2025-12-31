@@ -43,7 +43,7 @@ const Header = () => {
     >
       <div className="container flex items-center justify-between">
         <a href="#" className="flex items-center gap-2 text-xl font-bold" aria-label="Intellects.tech homepage">
-          <span className="gradient-text">intellects.tech</span>
+          <span className="gradient-text">Intellects AI</span>
         </a>
 
         {/* Desktop Navigation */}

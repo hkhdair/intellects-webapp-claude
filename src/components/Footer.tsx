@@ -10,7 +10,7 @@ const Footer: React.FC = () => {
         <div className="flex flex-col md:flex-row items-center justify-between gap-6">
           <div className="flex flex-col items-center md:items-start">
             <div className="text-xl font-bold gradient-text mb-2">
-              intellects.tech
+              Intellects AI
             </div>
             <p className="text-text-secondary text-sm text-center md:text-left">
               Innovative AI & Automation Solutions for Modern Businesses
@@ -44,7 +44,7 @@ const Footer: React.FC = () => {
         </div>
         
         <div className="mt-8 pt-8 border-t border-gray-800 text-text-muted text-sm text-center">
-          <p>© {year} intellects.tech. All rights reserved.</p>
+          <p>© {year} Intellects AI. All rights reserved.</p>
         </div>
       </div>
     </footer>
