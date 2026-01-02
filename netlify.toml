@@ -1,0 +1,60 @@
+# Netlify configuration file
+# https://docs.netlify.com/configure-builds/file-based-configuration/
+
+[build]
+  # Build command
+  command = "npm run build"
+  # Directory with the static files
+  publish = "dist"
+
+# Domain aliases - Netlify will automatically redirect these to primary domain
+[[redirects]]
+  from = "https://intellectsai.au/*"
+  to = "https://intellects.tech/:splat"
+  status = 301
+  force = true
+
+[[redirects]]
+  from = "https://www.intellectsai.au/*"
+  to = "https://intellects.tech/:splat"
+  status = 301
+  force = true
+
+[[redirects]]
+  from = "https://intellectsai.com.au/*"
+  to = "https://intellects.tech/:splat"
+  status = 301
+  force = true
+
+[[redirects]]
+  from = "https://www.intellectsai.com.au/*"
+  to = "https://intellects.tech/:splat"
+  status = 301
+  force = true
+
+[[redirects]]
+  from = "https://www.intellects.tech/*"
+  to = "https://intellects.tech/:splat"
+  status = 301
+  force = true
+
+# SPA fallback - Handle React Router routes
+[[redirects]]
+  from = "/*"
+  to = "/index.html"
+  status = 200
+
+# Headers for security and SEO
+[[headers]]
+  for = "/*"
+  [headers.values]
+    X-Frame-Options = "SAMEORIGIN"
+    X-Content-Type-Options = "nosniff"
+    Referrer-Policy = "strict-origin-when-cross-origin"
+    Permissions-Policy = "camera=(), microphone=(), geolocation=()"
+    Strict-Transport-Security = "max-age=31536000; includeSubDomains; preload"
+
+[[headers]]
+  for = "/blog/*"
+  [headers.values]
+    X-Robots-Tag = "noindex, nofollow"
