@@ -1,30 +1,48 @@
 import React from 'react';
 import { motion } from 'framer-motion';
 import ServiceCard from './ServiceCard';
-import { Settings, Brain, Users } from 'lucide-react';
+import { Settings, Brain, GraduationCap } from 'lucide-react';
 
 const Services: React.FC = () => {
   const services = [
     {
       id: 1,
       title: "Business Process Automation",
-      description: "Automate repetitive workflows, eliminate manual errors, and optimise operations with intelligent process automation. Free up your team's time to focus on strategy and innovation while driving measurable efficiency gains.",
+      description: "Automate repetitive workflows with chatbots, voice agents, and CRM-connected processes that reduce manual work and errors.",
       icon: <Settings className="text-primary w-12 h-12" />,
-      gradient: "from-primary/20 to-primary/10"
+      gradient: "from-primary/20 to-primary/10",
+      link: "/services/business-process-automation",
+      outcomes: [
+        "Cut manual data entry and follow-ups",
+        "Connect forms, inboxes, and CRMs",
+        "Deploy chat/voice assistants with handover"
+      ]
     },
     {
       id: 2,
       title: "Custom AI Solutions",
-      description: "Unlock the power of artificial intelligence with tailored solutions that deliver actionable insights and smarter decisions. From predictive analytics to computer vision and natural language processing, we build AI systems designed to solve your unique business challenges.",
+      description: "Fine-tuned models on your data, evaluated and deployed securely — with privacy-by-design for Australian organisations.",
       icon: <Brain className="text-secondary w-12 h-12" />,
-      gradient: "from-secondary/20 to-secondary/10"
+      gradient: "from-secondary/20 to-secondary/10",
+      link: "/services/custom-ai-solutions",
+      outcomes: [
+        "Fine-tune + evaluate on your data",
+        "Deploy via API or lightweight app",
+        "Privacy-first implementation"
+      ]
     },
     {
       id: 3,
       title: "Training & Support",
-      description: "Ensure a smooth adoption of AI and automation with expert-led training and change management support. Empower your teams with practical skills, cultivate a culture of innovation, and guide your organisation through a successful transformation journey.",
-      icon: <Users className="text-accent w-12 h-12" />,
-      gradient: "from-accent/20 to-accent/10"
+      description: "Enable adoption with practical onboarding, playbooks, and ongoing support so solutions stick.",
+      icon: <GraduationCap className="text-accent w-12 h-12" />,
+      gradient: "from-accent/20 to-accent/10",
+      link: "/services/training-support",
+      outcomes: [
+        "Team training + operating playbooks",
+        "Change management and rollout support",
+        "Maintenance and improvements"
+      ]
     }
   ];
 
@@ -70,6 +88,8 @@ const Services: React.FC = () => {
               description={service.description}
               icon={service.icon}
               gradient={service.gradient}
+              link={service.link}
+              outcomes={service.outcomes}
             />
           ))}
         </motion.div>

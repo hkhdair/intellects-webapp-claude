@@ -24,7 +24,7 @@ const Header = () => {
 
   const navLinks = [
     { name: 'Home', href: '/', isRoute: true },
-    { name: 'Services', href: '#services', isRoute: false },
+    { name: 'Services', href: '/#services', isRoute: false },
     { name: 'Contact', href: '#contact', isRoute: false }
   ];
 
@@ -42,7 +42,7 @@ const Header = () => {
       }`}
     >
       <div className="container flex items-center justify-between">
-        <a href="#" className="flex items-center gap-2 text-xl font-bold" aria-label="Intellects.tech homepage">
+        <a href="/" className="flex items-center gap-2 text-xl font-bold" aria-label="Intellects.tech homepage">
           <span className="gradient-text">Intellects AI</span>
         </a>
 
