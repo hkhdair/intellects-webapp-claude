@@ -7,34 +7,22 @@
   # Directory with the static files
   publish = "dist"
 
-# Domain aliases - Netlify will automatically redirect these to primary domain
+# Redirect www to non-www for all domains
 [[redirects]]
-  from = "https://intellectsai.au/*"
+  from = "https://www.intellects.tech/*"
   to = "https://intellects.tech/:splat"
   status = 301
   force = true
 
 [[redirects]]
   from = "https://www.intellectsai.au/*"
-  to = "https://intellects.tech/:splat"
-  status = 301
-  force = true
-
-[[redirects]]
-  from = "https://intellectsai.com.au/*"
-  to = "https://intellects.tech/:splat"
+  to = "https://intellectsai.au/:splat"
   status = 301
   force = true
 
 [[redirects]]
   from = "https://www.intellectsai.com.au/*"
-  to = "https://intellects.tech/:splat"
-  status = 301
-  force = true
-
-[[redirects]]
-  from = "https://www.intellects.tech/*"
-  to = "https://intellects.tech/:splat"
+  to = "https://intellectsai.com.au/:splat"
   status = 301
   force = true
 

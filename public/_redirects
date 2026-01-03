@@ -1,12 +1,7 @@
-# Domain redirects - Redirect alternate domains to primary domain
-# 301 = Permanent redirect (good for SEO)
-https://intellectsai.au/* https://intellects.tech/:splat 301!
-https://www.intellectsai.au/* https://intellects.tech/:splat 301!
-https://intellectsai.com.au/* https://intellects.tech/:splat 301!
-https://www.intellectsai.com.au/* https://intellects.tech/:splat 301!
-
-# Redirect www to non-www for primary domain (optional but recommended)
+# Redirect www to non-www for all domains
 https://www.intellects.tech/* https://intellects.tech/:splat 301!
+https://www.intellectsai.au/* https://intellectsai.au/:splat 301!
+https://www.intellectsai.com.au/* https://intellectsai.com.au/:splat 301!
 
 # Netlify redirects for React Router (SPA)
 # This ensures all routes are handled by the React app
