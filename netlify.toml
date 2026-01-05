@@ -7,6 +7,13 @@
   # Directory with the static files
   publish = "dist"
 
+# Redirect job screening to standalone site
+[[redirects]]
+  from = "/job_screening"
+  to = "https://intellects-jobs-screening.netlify.app/"
+  status = 301
+  force = true
+
 # Redirect www to non-www for all domains
 [[redirects]]
   from = "https://www.intellects.tech/*"

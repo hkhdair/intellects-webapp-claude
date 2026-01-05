@@ -31,7 +31,7 @@ const Header = () => {
   const productsDropdown = {
     name: 'Products',
     items: [
-      { name: 'Job Screening', href: '/job_screening', isRoute: true }
+      { name: 'JobSense', href: 'https://jobsense.intellectsai.au/', isRoute: false, isExternal: true }
     ]
   };
 
@@ -93,16 +93,29 @@ const Header = () => {
                 className="absolute top-full left-0 pt-1 min-w-[180px]"
               >
                 <div className="bg-background-dark border border-gray-700 rounded-lg shadow-xl py-2">
-                  {productsDropdown.items.map((item) => (
-                    <Link
-                      key={item.name}
-                      to={item.href}
-                      className="block px-4 py-2 text-text-secondary hover:text-white hover:bg-background-light transition-colors"
-                      aria-label={`Navigate to ${item.name}`}
-                    >
-                      {item.name}
-                    </Link>
-                  ))}
+                  {productsDropdown.items.map((item) =>
+                    item.isExternal ? (
+                      <a
+                        key={item.name}
+                        href={item.href}
+                        target="_blank"
+                        rel="noopener noreferrer"
+                        className="block px-4 py-2 text-text-secondary hover:text-white hover:bg-background-light transition-colors"
+                        aria-label={`Navigate to ${item.name}`}
+                      >
+                        {item.name}
+                      </a>
+                    ) : (
+                      <Link
+                        key={item.name}
+                        to={item.href}
+                        className="block px-4 py-2 text-text-secondary hover:text-white hover:bg-background-light transition-colors"
+                        aria-label={`Navigate to ${item.name}`}
+                      >
+                        {item.name}
+                      </Link>
+                    )
+                  )}
                 </div>
               </motion.div>
             )}
@@ -178,20 +191,37 @@ const Header = () => {
                     transition={{ duration: 0.2 }}
                     className="pl-4 border-l border-gray-700 ml-2"
                   >
-                    {productsDropdown.items.map((item) => (
-                      <Link
-                        key={item.name}
-                        to={item.href}
-                        className="block text-text-secondary hover:text-white py-2 transition-colors"
-                        aria-label={`Navigate to ${item.name}`}
-                        onClick={() => {
-                          setIsMenuOpen(false);
-                          setIsMobileProductsOpen(false);
-                        }}
-                      >
-                        {item.name}
-                      </Link>
-                    ))}
+                    {productsDropdown.items.map((item) =>
+                      item.isExternal ? (
+                        <a
+                          key={item.name}
+                          href={item.href}
+                          target="_blank"
+                          rel="noopener noreferrer"
+                          className="block text-text-secondary hover:text-white py-2 transition-colors"
+                          aria-label={`Navigate to ${item.name}`}
+                          onClick={() => {
+                            setIsMenuOpen(false);
+                            setIsMobileProductsOpen(false);
+                          }}
+                        >
+                          {item.name}
+                        </a>
+                      ) : (
+                        <Link
+                          key={item.name}
+                          to={item.href}
+                          className="block text-text-secondary hover:text-white py-2 transition-colors"
+                          aria-label={`Navigate to ${item.name}`}
+                          onClick={() => {
+                            setIsMenuOpen(false);
+                            setIsMobileProductsOpen(false);
+                          }}
+                        >
+                          {item.name}
+                        </Link>
+                      )
+                    )}
                   </motion.div>
                 )}
               </div>

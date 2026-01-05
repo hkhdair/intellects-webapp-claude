@@ -58,14 +58,6 @@
     <priority>0.9</priority>
   </url>
 
-  <!-- Job Screening Page -->
-  <url>
-    <loc>https://intellects.tech/job_screening</loc>
-    <lastmod>2026-01-03</lastmod>
-    <changefreq>monthly</changefreq>
-    <priority>0.5</priority>
-  </url>
-
   <!-- Unsubscribe Page - Lower Priority -->
   <url>
     <loc>https://intellects.tech/unsubscribe</loc>

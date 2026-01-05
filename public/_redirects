@@ -1,3 +1,6 @@
+# Redirect job screening to standalone site
+/job_screening https://intellects-jobs-screening.netlify.app/ 301!
+
 # Redirect www to non-www for all domains
 https://www.intellects.tech/* https://intellects.tech/:splat 301!
 https://www.intellectsai.au/* https://intellectsai.au/:splat 301!
