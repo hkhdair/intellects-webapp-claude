@@ -1,6 +1,6 @@
 User-agent: *
 Allow: /
-Sitemap: https://intellects.tech/sitemap.xml
+Sitemap: https://intellectsai.au/sitemap.xml
 
 # Block blog pages (removed functionality)
 Disallow: /blog/

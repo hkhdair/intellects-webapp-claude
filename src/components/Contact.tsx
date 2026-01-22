@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import { motion } from 'framer-motion';
 import { useForm } from 'react-hook-form';
-import { Send, User, Mail, MessageSquare, AlertCircle } from 'lucide-react';
+import { Send, User, Mail, MessageSquare, AlertCircle, Phone } from 'lucide-react';
 
 type FormData = {
   name: string;
@@ -74,7 +74,14 @@ const Contact: React.FC = () => {
             <h2 className="text-2xl md:text-3xl font-bold mb-2" id="contact-heading">
               GET IN TOUCH
             </h2>
-            <div className="h-1 w-20 bg-gradient-to-r from-primary to-secondary rounded-full"></div>
+            <div className="h-1 w-20 bg-gradient-to-r from-primary to-secondary rounded-full mb-4"></div>
+            <a
+              href="tel:+61861712665"
+              className="inline-flex items-center gap-2 text-text-secondary hover:text-primary transition-colors"
+            >
+              <Phone className="w-4 h-4" />
+              <span>(08) 6171 2665</span>
+            </a>
           </div>
           
           <form onSubmit={handleSubmit(onSubmit)} className="p-6 md:p-10" role="form" aria-labelledby="contact-heading">

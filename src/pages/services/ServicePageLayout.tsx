@@ -5,7 +5,7 @@ import { ChevronRight, Mail, ArrowRight, ChevronDown } from 'lucide-react';
 import Header from '../../components/Header';
 import Footer from '../../components/Footer';
 
-const CONTACT_EMAIL = "hello@intellects.tech";
+const CONTACT_EMAIL = "hello@intellectsai.au";
 
 interface Step {
   number: number;

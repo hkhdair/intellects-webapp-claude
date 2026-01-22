@@ -1,50 +1,43 @@
 import React from 'react';
-// import { Github, Linkedin, Twitter } from 'lucide-react'; // Commented out - social media icons not in use
+import { Phone, MapPin } from 'lucide-react';
 
 const Footer: React.FC = () => {
   const year = new Date().getFullYear();
-  
+
   return (
-    <footer className="bg-background-light py-10 border-t border-gray-800">
+    <footer className="bg-background-light py-8 border-t border-gray-800/50">
       <div className="container">
-        <div className="flex flex-col md:flex-row items-center justify-between gap-6">
-          <div className="flex flex-col items-center md:items-start">
-            <div className="text-xl font-bold gradient-text mb-2">
-              Intellects AI
-            </div>
-            <p className="text-text-secondary text-sm text-center md:text-left">
-              Innovative AI & Automation Solutions for Modern Businesses
-            </p>
+        <div className="flex flex-col items-center gap-6">
+          {/* Brand */}
+          <div className="text-xl font-bold gradient-text">
+            Intellects AI
           </div>
-          
-          {/* Social Media Links - Commented Out */}
-          {/* <div className="flex gap-4">
-            <a 
-              href="#" 
-              className="text-text-secondary hover:text-primary transition-colors p-2"
-              aria-label="GitHub"
+
+          {/* Contact Row */}
+          <div className="flex flex-wrap items-center justify-center gap-x-6 gap-y-2 text-sm text-text-secondary">
+            <a
+              href="tel:+61861712665"
+              className="inline-flex items-center gap-2 hover:text-primary transition-colors"
             >
-              <Github size={20} />
+              <Phone className="w-4 h-4" />
+              <span>(08) 6171 2665</span>
             </a>
-            <a 
-              href="#" 
-              className="text-text-secondary hover:text-primary transition-colors p-2"
-              aria-label="LinkedIn"
+            <span className="hidden sm:inline text-gray-700">|</span>
+            <a
+              href="https://maps.google.com/?q=451+Pulteney+St,+Adelaide+SA+5000"
+              target="_blank"
+              rel="noopener noreferrer"
+              className="inline-flex items-center gap-2 hover:text-primary transition-colors"
             >
-              <Linkedin size={20} />
+              <MapPin className="w-4 h-4" />
+              <span>451 Pulteney St, Adelaide SA 5000</span>
             </a>
-            <a 
-              href="#" 
-              className="text-text-secondary hover:text-primary transition-colors p-2"
-              aria-label="Twitter"
-            >
-              <Twitter size={20} />
-            </a>
-          </div> */}
-        </div>
-        
-        <div className="mt-8 pt-8 border-t border-gray-800 text-text-muted text-sm text-center">
-          <p>© {year} Intellects AI. All rights reserved.</p>
+          </div>
+
+          {/* Copyright */}
+          <p className="text-text-muted text-xs">
+            © {year} Intellects AI. All rights reserved.
+          </p>
         </div>
       </div>
     </footer>

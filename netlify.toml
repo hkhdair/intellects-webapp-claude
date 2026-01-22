@@ -14,10 +14,17 @@
   status = 301
   force = true
 
+# Redirect intellects.tech to primary domain intellectsai.au
+[[redirects]]
+  from = "https://intellects.tech/*"
+  to = "https://intellectsai.au/:splat"
+  status = 301
+  force = true
+
 # Redirect www to non-www for all domains
 [[redirects]]
   from = "https://www.intellects.tech/*"
-  to = "https://intellects.tech/:splat"
+  to = "https://intellectsai.au/:splat"
   status = 301
   force = true
 
