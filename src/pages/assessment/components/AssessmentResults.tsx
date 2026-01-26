@@ -276,11 +276,28 @@ const AssessmentResults: React.FC<AssessmentResultsProps> = ({ results, answers,
         </p>
       </motion.div>
 
+      {/* Retake Assessment */}
+      <motion.div
+        initial={{ opacity: 0 }}
+        animate={{ opacity: 1 }}
+        transition={{ delay: 1 }}
+        className="text-center mb-8"
+      >
+        <button
+          type="button"
+          onClick={onReset}
+          className="btn-outline inline-flex items-center gap-2 text-text-secondary hover:text-text-primary"
+        >
+          <RotateCcw className="w-4 h-4" />
+          Retake Assessment
+        </button>
+      </motion.div>
+
       <motion.div
         initial={{ opacity: 0, y: 20 }}
         animate={{ opacity: 1, y: 0 }}
-        transition={{ delay: 1 }}
-        className="text-center bg-background-light rounded-2xl p-8 border border-gray-800 mb-8"
+        transition={{ delay: 1.1 }}
+        className="text-center bg-background-light rounded-2xl p-8 border border-gray-800"
       >
         <div className="mb-4">
           <CheckCircle className="w-12 h-12 text-primary mx-auto" />
@@ -296,23 +313,6 @@ const AssessmentResults: React.FC<AssessmentResultsProps> = ({ results, answers,
           Book Free Consultation
           <ArrowRight className="ml-2 w-5 h-5" />
         </Link>
-      </motion.div>
-
-      {/* Retake Assessment */}
-      <motion.div
-        initial={{ opacity: 0 }}
-        animate={{ opacity: 1 }}
-        transition={{ delay: 1.1 }}
-        className="text-center"
-      >
-        <button
-          type="button"
-          onClick={onReset}
-          className="btn-outline inline-flex items-center gap-2 text-text-secondary hover:text-text-primary"
-        >
-          <RotateCcw className="w-4 h-4" />
-          Retake Assessment
-        </button>
       </motion.div>
     </motion.div>
   );
