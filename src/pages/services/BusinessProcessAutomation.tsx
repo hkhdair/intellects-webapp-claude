@@ -86,7 +86,11 @@ const BusinessProcessAutomation: React.FC = () => {
         answer: "Simple automations can be ready in 1-2 weeks. More complex solutions with chatbots, voice agents, and multiple integrations typically take 4-8 weeks. We'll scope your specific timeline during discovery."
       }
     ],
-    ctaBandText: "Tell us what you want to automate. We'll propose a simple, phased plan."
+    ctaBandText: "Tell us what you want to automate. We'll propose a simple, phased plan.",
+    heroCta: {
+      text: "Get Free AI & Automation Assessment",
+      href: "/assessment"
+    }
   };
 
   return <ServicePageLayout {...pageData} />;

@@ -82,7 +82,11 @@ const CustomAISolutions: React.FC = () => {
         answer: "Not always. Fine-tuning can work with smaller datasets (hundreds to thousands of examples). The exact requirements depend on your task complexity. We'll assess your data during the scoping phase and recommend the best approach."
       }
     ],
-    ctaBandText: "Share your use case and data context. We'll recommend the simplest approach."
+    ctaBandText: "Share your use case and data context. We'll recommend the simplest approach.",
+    heroCta: {
+      text: "Get Free AI & Automation Assessment",
+      href: "/assessment"
+    }
   };
 
   return <ServicePageLayout {...pageData} />;

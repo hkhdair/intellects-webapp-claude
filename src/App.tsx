@@ -5,6 +5,7 @@ import ScrollToHash from './components/ScrollToHash';
 import BusinessProcessAutomation from './pages/services/BusinessProcessAutomation';
 import CustomAISolutions from './pages/services/CustomAISolutions';
 import TrainingSupport from './pages/services/TrainingSupport';
+import AssessmentPage from './pages/assessment/AssessmentPage';
 
 function App() {
   return (
@@ -16,6 +17,7 @@ function App() {
         <Route path="/services/business-process-automation" element={<BusinessProcessAutomation />} />
         <Route path="/services/custom-ai-solutions" element={<CustomAISolutions />} />
         <Route path="/services/training-support" element={<TrainingSupport />} />
+        <Route path="/assessment" element={<AssessmentPage />} />
       </Routes>
     </Router>
   );

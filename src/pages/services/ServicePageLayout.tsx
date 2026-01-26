@@ -23,6 +23,11 @@ interface FAQ {
   answer: string;
 }
 
+interface HeroCTAProps {
+  text: string;
+  href: string;
+}
+
 interface ServicePageLayoutProps {
   title: string;
   subtitle: string;
@@ -32,6 +37,7 @@ interface ServicePageLayoutProps {
   useCases: UseCase[];
   faqs: FAQ[];
   ctaBandText: string;
+  heroCta?: HeroCTAProps;
 }
 
 const ServicePageLayout: React.FC<ServicePageLayoutProps> = ({
@@ -42,7 +48,8 @@ const ServicePageLayout: React.FC<ServicePageLayoutProps> = ({
   steps,
   useCases,
   faqs,
-  ctaBandText
+  ctaBandText,
+  heroCta
 }) => {
   const [openFAQ, setOpenFAQ] = useState<number | null>(null);
 
@@ -79,10 +86,10 @@ const ServicePageLayout: React.FC<ServicePageLayoutProps> = ({
               </p>
               
               <Link
-                to="/#contact"
+                to={heroCta?.href || "/#contact"}
                 className="btn-primary inline-flex items-center justify-center"
               >
-                Book a consult
+                {heroCta?.text || "Book a consult"}
                 <ArrowRight className="ml-2 w-4 h-4" />
               </Link>
             </motion.div>
