@@ -43,7 +43,7 @@ export async function submitAssessment(
   };
 
   try {
-    const response = await fetch('https://wflow.intellects.tech/webhook-test/ai_assessment', {
+    const response = await fetch('https://wflow.intellects.tech/webhook/ai_assessment', {
       method: 'POST',
       headers: {
         'Content-Type': 'application/json',
