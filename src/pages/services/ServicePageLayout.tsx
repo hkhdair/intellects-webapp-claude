@@ -89,7 +89,7 @@ const ServicePageLayout: React.FC<ServicePageLayoutProps> = ({
                 to={heroCta?.href || "/#contact"}
                 className="btn-primary inline-flex items-center justify-center"
               >
-                {heroCta?.text || "Book a consult"}
+                {heroCta?.text || "Request a Call Back"}
                 <ArrowRight className="ml-2 w-4 h-4" />
               </Link>
             </motion.div>
@@ -291,7 +291,7 @@ const ServicePageLayout: React.FC<ServicePageLayoutProps> = ({
                 to="/#contact"
                 className="btn-primary inline-flex items-center"
               >
-                Book a consult
+                Request a Call Back
                 <ArrowRight className="ml-2 w-4 h-4" />
               </Link>
             </motion.div>

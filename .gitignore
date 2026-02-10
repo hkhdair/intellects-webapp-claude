@@ -31,3 +31,7 @@ dist-ssr
 src/components/blog/
 src/data/blogPosts.ts
 src/types/blog.ts
+
+
+ASSESSMENT_SPECIFICATION.md
+N8N_REPORT_WORKFLOW.md

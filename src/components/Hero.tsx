@@ -33,7 +33,7 @@ const Hero: React.FC = () => {
                 Explore Services
               </a>
               <a href="#contact" className="btn-outline">
-                Get in Touch
+                Request a Call Back
               </a>
             </div>
           </motion.div>

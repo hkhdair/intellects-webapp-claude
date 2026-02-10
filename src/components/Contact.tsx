@@ -1,19 +1,28 @@
 import React, { useState } from 'react';
 import { motion } from 'framer-motion';
 import { useForm } from 'react-hook-form';
-import { Send, User, Mail, MessageSquare, AlertCircle, Phone } from 'lucide-react';
+import { Send, User, Mail, MessageSquare, AlertCircle, Phone, Building2 } from 'lucide-react';
 
 type FormData = {
   name: string;
+  company: string;
   email: string;
+  phone: string;
   message: string;
 };
+
+const PERSONAL_EMAIL_DOMAINS = [
+  'gmail.com', 'yahoo.com', 'hotmail.com', 'outlook.com', 'live.com',
+  'icloud.com', 'me.com', 'mac.com', 'aol.com', 'protonmail.com',
+  'mail.com', 'zoho.com', 'ymail.com', 'gmx.com', 'fastmail.com',
+];
 
 type SubmissionState = 'idle' | 'submitting' | 'success' | 'error';
 
 const Contact: React.FC = () => {
   const [submissionState, setSubmissionState] = useState<SubmissionState>('idle');
   const [errorMessage, setErrorMessage] = useState<string>('');
+  const honeypotRef = React.useRef<HTMLInputElement>(null);
 
   const {
     register,
@@ -25,6 +34,14 @@ const Contact: React.FC = () => {
   });
 
   const onSubmit = async (data: FormData) => {
+    // Honeypot check — bots fill hidden fields, humans don't
+    if (honeypotRef.current?.value) {
+      setSubmissionState('success');
+      reset();
+      setTimeout(() => setSubmissionState('idle'), 5000);
+      return;
+    }
+
     setSubmissionState('submitting');
     setErrorMessage('');
 
@@ -38,7 +55,7 @@ const Contact: React.FC = () => {
       });
 
       if (!response.ok) {
-        throw new Error(`Failed to send message: ${response.status}`);
+        throw new Error(`Failed to submit request: ${response.status}`);
       }
 
       setSubmissionState('success');
@@ -72,7 +89,7 @@ const Contact: React.FC = () => {
         >
           <div className="px-6 py-8 md:p-10 border-b border-gray-800">
             <h2 className="text-2xl md:text-3xl font-bold mb-2" id="contact-heading">
-              GET IN TOUCH
+              REQUEST A CALL BACK
             </h2>
             <div className="h-1 w-20 bg-gradient-to-r from-primary to-secondary rounded-full mb-4"></div>
             <a
@@ -85,6 +102,17 @@ const Contact: React.FC = () => {
           </div>
           
           <form onSubmit={handleSubmit(onSubmit)} className="p-6 md:p-10" role="form" aria-labelledby="contact-heading">
+            {/* Honeypot field — hidden from humans, catches bots */}
+            <input
+              ref={honeypotRef}
+              type="text"
+              name="website"
+              autoComplete="off"
+              aria-hidden="true"
+              tabIndex={-1}
+              style={{ position: 'absolute', left: '-9999px', opacity: 0, pointerEvents: 'none' }}
+            />
+
             {/* Name Input */}
             <div className="mb-6">
               <div className="relative">
@@ -124,6 +152,45 @@ const Contact: React.FC = () => {
               )}
             </div>
 
+            {/* Company Name Input */}
+            <div className="mb-6">
+              <div className="relative">
+                <Building2 className="absolute left-3 top-1/2 transform -translate-y-1/2 w-5 h-5 text-text-muted" />
+                <input
+                  {...register('company', {
+                    required: 'Company name is required',
+                    minLength: {
+                      value: 2,
+                      message: 'Company name must be at least 2 characters'
+                    },
+                    maxLength: {
+                      value: 100,
+                      message: 'Company name must be less than 100 characters'
+                    },
+                    pattern: {
+                      value: /^[a-zA-Z0-9\s&.,'\-]+$/,
+                      message: 'Please enter a valid company name'
+                    }
+                  })}
+                  type="text"
+                  placeholder="Your company name"
+                  aria-label="Your company name"
+                  className={`input pl-10 ${errors.company ? 'border-red-500 focus:border-red-500 focus:ring-red-500' : ''}`}
+                  disabled={submissionState === 'submitting'}
+                />
+              </div>
+              {errors.company && (
+                <motion.p
+                  initial={{ opacity: 0, y: -10 }}
+                  animate={{ opacity: 1, y: 0 }}
+                  className="text-red-400 text-sm mt-1 flex items-center gap-1"
+                >
+                  <AlertCircle className="w-4 h-4" />
+                  {errors.company.message}
+                </motion.p>
+              )}
+            </div>
+
             {/* Email Input */}
             <div className="mb-6">
               <div className="relative">
@@ -134,11 +201,18 @@ const Contact: React.FC = () => {
                     pattern: {
                       value: /^[A-Z0-9._%+-]+@[A-Z0-9.-]+\.[A-Z]{2,}$/i,
                       message: 'Please enter a valid email address'
+                    },
+                    validate: (value) => {
+                      const domain = value.split('@')[1]?.toLowerCase();
+                      if (PERSONAL_EMAIL_DOMAINS.includes(domain)) {
+                        return 'Please use your business email address';
+                      }
+                      return true;
                     }
                   })}
                   type="email"
-                  placeholder="your@email.com"
-                  aria-label="Your email address"
+                  placeholder="name@company.com"
+                  aria-label="Your business email address"
                   className={`input pl-10 ${errors.email ? 'border-red-500 focus:border-red-500 focus:ring-red-500' : ''}`}
                   disabled={submissionState === 'submitting'}
                 />
@@ -151,6 +225,37 @@ const Contact: React.FC = () => {
                 >
                   <AlertCircle className="w-4 h-4" />
                   {errors.email.message}
+                </motion.p>
+              )}
+            </div>
+
+            {/* Phone Input */}
+            <div className="mb-6">
+              <div className="relative">
+                <Phone className="absolute left-3 top-1/2 transform -translate-y-1/2 w-5 h-5 text-text-muted" />
+                <input
+                  {...register('phone', {
+                    required: 'Phone number is required',
+                    pattern: {
+                      value: /^(?:\+?61|0)[2-478]\d{8}$/,
+                      message: 'Please enter a valid Australian phone number (e.g. 0412 345 678 or 08 1234 5678)'
+                    }
+                  })}
+                  type="tel"
+                  placeholder="04XX XXX XXX"
+                  aria-label="Your Australian phone number"
+                  className={`input pl-10 ${errors.phone ? 'border-red-500 focus:border-red-500 focus:ring-red-500' : ''}`}
+                  disabled={submissionState === 'submitting'}
+                />
+              </div>
+              {errors.phone && (
+                <motion.p
+                  initial={{ opacity: 0, y: -10 }}
+                  animate={{ opacity: 1, y: 0 }}
+                  className="text-red-400 text-sm mt-1 flex items-center gap-1"
+                >
+                  <AlertCircle className="w-4 h-4" />
+                  {errors.phone.message}
                 </motion.p>
               )}
             </div>
@@ -171,8 +276,8 @@ const Contact: React.FC = () => {
                       message: 'Message must be less than 1000 characters'
                     }
                   })}
-                  placeholder="Tell us about your automation requirements..."
-                  aria-label="Your message about automation requirements"
+                  placeholder="Tell us about your business needs..."
+                  aria-label="Your message about business needs"
                   className={`textarea pl-10 ${errors.message ? 'border-red-500 focus:border-red-500 focus:ring-red-500' : ''}`}
                   rows={6}
                   disabled={submissionState === 'submitting'}
@@ -197,10 +302,10 @@ const Contact: React.FC = () => {
                 className="mb-6 bg-red-500/10 border border-red-500/20 rounded-lg p-4 text-red-400 text-center flex items-center justify-center gap-2"
               >
                 <AlertCircle className="w-5 h-5" />
-                {errorMessage || 'Failed to send message. Please try again.'}
+                {errorMessage || 'Failed to submit request. Please try again.'}
               </motion.div>
             )}
-            
+
             <motion.button
               type="submit"
               disabled={!isValid || submissionState === 'submitting'}
@@ -209,7 +314,7 @@ const Contact: React.FC = () => {
                   ? 'opacity-50 cursor-not-allowed'
                   : 'hover:shadow-lg hover:shadow-primary/25'
               }`}
-              aria-label="Send contact form message"
+              aria-label="Submit call back request"
               whileHover={isValid && submissionState !== 'submitting' ? { scale: 1.02 } : {}}
               whileTap={isValid && submissionState !== 'submitting' ? { scale: 0.98 } : {}}
             >
@@ -220,12 +325,12 @@ const Contact: React.FC = () => {
                     transition={{ duration: 1, repeat: Infinity, ease: "linear" }}
                     className="w-5 h-5 border-2 border-white/30 border-t-white rounded-full mr-2"
                   />
-                  Sending...
+                  Submitting...
                 </>
               ) : (
                 <span className="flex items-center">
-                  <Send className="mr-2 h-4 w-4" />
-                  SEND MESSAGE
+                  <Phone className="mr-2 h-4 w-4" />
+                  REQUEST CALL BACK
                 </span>
               )}
             </motion.button>
@@ -237,7 +342,7 @@ const Contact: React.FC = () => {
                 animate={{ opacity: 1, y: 0 }}
               >
                 <AlertCircle className="w-5 h-5" />
-                Thank you! Your message has been sent successfully. We'll get back to you soon.
+                Thank you! We've received your request. Our team will call you back shortly.
               </motion.div>
             )}
           </form>
