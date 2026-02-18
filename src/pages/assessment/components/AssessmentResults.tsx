@@ -226,7 +226,7 @@ const AssessmentResults: React.FC<AssessmentResultsProps> = ({ results, answers,
             <Mail className="w-6 h-6 text-primary" />
           </div>
           <div>
-            <h2 className="text-xl font-bold">Want a More Detailed Report?</h2>
+            <h2 className="text-xl font-bold">Want a more detailed report?</h2>
             <p className="text-sm text-text-secondary">
               Enter your email to receive a detailed assessment report with additional insights.
             </p>
