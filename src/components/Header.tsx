@@ -1,13 +1,15 @@
 import { useState, useEffect } from 'react';
 import { Link } from 'react-router-dom';
-import { Menu, X, ChevronDown } from 'lucide-react';
+import { Menu, X, ChevronDown, Sun, Moon } from 'lucide-react';
 import { motion } from 'framer-motion';
+import { useTheme } from '../contexts/ThemeContext';
 
 const Header = () => {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
   const [scrolled, setScrolled] = useState(false);
   const [isProductsOpen, setIsProductsOpen] = useState(false);
   const [isMobileProductsOpen, setIsMobileProductsOpen] = useState(false);
+  const { theme, toggleTheme } = useTheme();
 
   useEffect(() => {
     const handleScroll = () => {
@@ -35,8 +37,18 @@ const Header = () => {
     ]
   };
 
+  const ThemeToggleButton = (
+    <button
+      onClick={toggleTheme}
+      className="p-2 rounded-lg text-text-secondary hover:text-text-primary hover:bg-background-light transition-colors"
+      aria-label={theme === 'dark' ? 'Switch to light mode' : 'Switch to dark mode'}
+    >
+      {theme === 'dark' ? <Sun size={18} /> : <Moon size={18} />}
+    </button>
+  );
+
   return (
-    <header 
+    <header
       className={`fixed top-0 left-0 right-0 z-50 transition-all duration-300 ${
         scrolled ? 'bg-background-dark/90 backdrop-blur-md py-4 shadow-lg' : 'bg-transparent py-6'
       }`}
@@ -51,7 +63,7 @@ const Header = () => {
           {/* Home Link */}
           <Link
             to="/"
-            className="text-text-secondary hover:text-white transition-colors"
+            className="text-text-secondary hover:text-text-primary transition-colors"
             aria-label="Navigate to Home"
           >
             Home
@@ -60,7 +72,7 @@ const Header = () => {
           {/* Services Link */}
           <a
             href="#services"
-            className="text-text-secondary hover:text-white transition-colors"
+            className="text-text-secondary hover:text-text-primary transition-colors"
             aria-label="Navigate to Services section"
           >
             Services
@@ -73,7 +85,7 @@ const Header = () => {
             onMouseLeave={() => setIsProductsOpen(false)}
           >
             <button
-              className="flex items-center gap-1 text-text-secondary hover:text-white transition-colors py-2"
+              className="flex items-center gap-1 text-text-secondary hover:text-text-primary transition-colors py-2"
               aria-label="Products menu"
               aria-expanded={isProductsOpen}
             >
@@ -100,7 +112,7 @@ const Header = () => {
                         href={item.href}
                         target="_blank"
                         rel="noopener noreferrer"
-                        className="block px-4 py-2 text-text-secondary hover:text-white hover:bg-background-light transition-colors"
+                        className="block px-4 py-2 text-text-secondary hover:text-text-primary hover:bg-background-light transition-colors"
                         aria-label={`Navigate to ${item.name}`}
                       >
                         {item.name}
@@ -109,7 +121,7 @@ const Header = () => {
                       <Link
                         key={item.name}
                         to={item.href}
-                        className="block px-4 py-2 text-text-secondary hover:text-white hover:bg-background-light transition-colors"
+                        className="block px-4 py-2 text-text-secondary hover:text-text-primary hover:bg-background-light transition-colors"
                         aria-label={`Navigate to ${item.name}`}
                       >
                         {item.name}
@@ -124,21 +136,27 @@ const Header = () => {
           {/* Contact Link */}
           <a
             href="#contact"
-            className="text-text-secondary hover:text-white transition-colors"
+            className="text-text-secondary hover:text-text-primary transition-colors"
             aria-label="Navigate to Contact section"
           >
             Contact
           </a>
+
+          {/* Theme Toggle */}
+          {ThemeToggleButton}
         </nav>
 
-        {/* Mobile Menu Button */}
-        <button 
-          className="md:hidden text-text-secondary p-2"
-          onClick={() => setIsMenuOpen(!isMenuOpen)}
-          aria-label="Toggle mobile navigation menu"
-        >
-          {isMenuOpen ? <X size={24} /> : <Menu size={24} />}
-        </button>
+        {/* Mobile controls: Theme Toggle + Hamburger */}
+        <div className="md:hidden flex items-center gap-2">
+          {ThemeToggleButton}
+          <button
+            className="text-text-secondary p-2"
+            onClick={() => setIsMenuOpen(!isMenuOpen)}
+            aria-label="Toggle mobile navigation menu"
+          >
+            {isMenuOpen ? <X size={24} /> : <Menu size={24} />}
+          </button>
+        </div>
 
         {/* Mobile Menu */}
         {isMenuOpen && (
@@ -152,7 +170,7 @@ const Header = () => {
               {/* Home */}
               <Link
                 to="/"
-                className="text-text-secondary hover:text-white py-2 transition-colors"
+                className="text-text-secondary hover:text-text-primary py-2 transition-colors"
                 aria-label="Navigate to Home"
                 onClick={() => setIsMenuOpen(false)}
               >
@@ -162,7 +180,7 @@ const Header = () => {
               {/* Services */}
               <a
                 href="#services"
-                className="text-text-secondary hover:text-white py-2 transition-colors"
+                className="text-text-secondary hover:text-text-primary py-2 transition-colors"
                 aria-label="Navigate to Services section"
                 onClick={() => setIsMenuOpen(false)}
               >
@@ -172,7 +190,7 @@ const Header = () => {
               {/* Products Dropdown */}
               <div>
                 <button
-                  className="flex items-center justify-between w-full text-text-secondary hover:text-white py-2 transition-colors"
+                  className="flex items-center justify-between w-full text-text-secondary hover:text-text-primary py-2 transition-colors"
                   onClick={() => setIsMobileProductsOpen(!isMobileProductsOpen)}
                   aria-expanded={isMobileProductsOpen}
                   aria-label="Products menu"
@@ -198,7 +216,7 @@ const Header = () => {
                           href={item.href}
                           target="_blank"
                           rel="noopener noreferrer"
-                          className="block text-text-secondary hover:text-white py-2 transition-colors"
+                          className="block text-text-secondary hover:text-text-primary py-2 transition-colors"
                           aria-label={`Navigate to ${item.name}`}
                           onClick={() => {
                             setIsMenuOpen(false);
@@ -211,7 +229,7 @@ const Header = () => {
                         <Link
                           key={item.name}
                           to={item.href}
-                          className="block text-text-secondary hover:text-white py-2 transition-colors"
+                          className="block text-text-secondary hover:text-text-primary py-2 transition-colors"
                           aria-label={`Navigate to ${item.name}`}
                           onClick={() => {
                             setIsMenuOpen(false);
@@ -229,7 +247,7 @@ const Header = () => {
               {/* Contact */}
               <a
                 href="#contact"
-                className="text-text-secondary hover:text-white py-2 transition-colors"
+                className="text-text-secondary hover:text-text-primary py-2 transition-colors"
                 aria-label="Navigate to Contact section"
                 onClick={() => setIsMenuOpen(false)}
               >

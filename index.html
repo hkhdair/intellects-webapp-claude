@@ -39,6 +39,14 @@
     <link rel="alternate" href="https://intellectsai.au/" hreflang="en-AU" />
     <link rel="alternate" href="https://intellects.tech/" hreflang="en" />
     
+    <!-- Anti-flash theme script: sets data-theme before React renders -->
+    <script>
+      (function(){
+        var t = localStorage.getItem('theme');
+        document.documentElement.setAttribute('data-theme', t === 'light' ? 'light' : 'dark');
+      })();
+    </script>
+
     <!-- Preconnect to external domains -->
     <link rel="preconnect" href="https://fonts.googleapis.com" />
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />

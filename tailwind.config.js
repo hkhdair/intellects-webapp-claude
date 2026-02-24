@@ -5,32 +5,37 @@ export default {
     extend: {
       colors: {
         background: {
-          dark: '#0F172A',  // Dark navy background
-          light: '#1E293B',  // Slightly lighter navy for cards/sections
+          dark:  'rgb(var(--bg-dark)  / <alpha-value>)',
+          light: 'rgb(var(--bg-light) / <alpha-value>)',
         },
         primary: {
-          DEFAULT: '#8B5CF6', // Purple
-          light: '#A78BFA',
-          dark: '#7C3AED',
+          DEFAULT: 'rgb(var(--primary)       / <alpha-value>)',
+          light:   'rgb(var(--primary-light) / <alpha-value>)',
+          dark:    'rgb(var(--primary-dark)  / <alpha-value>)',
         },
         secondary: {
-          DEFAULT: '#3B82F6', // Blue
-          light: '#60A5FA', 
-          dark: '#2563EB',
+          DEFAULT: 'rgb(var(--secondary)       / <alpha-value>)',
+          light:   'rgb(var(--secondary-light) / <alpha-value>)',
+          dark:    'rgb(var(--secondary-dark)  / <alpha-value>)',
         },
         accent: {
-          DEFAULT: '#06B6D4', // Teal
-          light: '#22D3EE',
-          dark: '#0891B2',
+          DEFAULT: 'rgb(var(--accent)       / <alpha-value>)',
+          light:   'rgb(var(--accent-light) / <alpha-value>)',
+          dark:    'rgb(var(--accent-dark)  / <alpha-value>)',
         },
-        success: '#10B981', // Green
-        warning: '#F59E0B', // Amber
-        error: '#EF4444',   // Red
+        success: 'rgb(var(--success) / <alpha-value>)',
+        warning: 'rgb(var(--warning) / <alpha-value>)',
+        error:   'rgb(var(--error)   / <alpha-value>)',
         text: {
-          primary: '#F8FAFC',
-          secondary: '#CBD5E1',
-          muted: '#64748B',
-        }
+          primary:   'rgb(var(--text-primary)   / <alpha-value>)',
+          secondary: 'rgb(var(--text-secondary) / <alpha-value>)',
+          muted:     'rgb(var(--text-muted)     / <alpha-value>)',
+        },
+        // Override Tailwind's built-in gray-700/800 to make border-gray-700/800 themeable
+        gray: {
+          700: 'rgb(var(--gray-700) / <alpha-value>)',
+          800: 'rgb(var(--gray-800) / <alpha-value>)',
+        },
       },
       fontFamily: {
         sans: ['Inter', 'system-ui', 'sans-serif'],
