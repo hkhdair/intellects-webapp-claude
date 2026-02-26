@@ -7,8 +7,8 @@ import { useTheme } from '../contexts/ThemeContext';
 const Header = () => {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
   const [scrolled, setScrolled] = useState(false);
-  const [isProductsOpen, setIsProductsOpen] = useState(false);
-  const [isMobileProductsOpen, setIsMobileProductsOpen] = useState(false);
+  const [isSolutionsOpen, setIsSolutionsOpen] = useState(false);
+  const [isMobileSolutionsOpen, setIsMobileSolutionsOpen] = useState(false);
   const { theme, toggleTheme } = useTheme();
 
   useEffect(() => {
@@ -30,10 +30,10 @@ const Header = () => {
     { name: 'Contact', href: '#contact', isRoute: false }
   ];
 
-  const productsDropdown = {
-    name: 'Products',
+  const solutionsDropdown = {
+    name: 'Solutions',
     items: [
-      { name: 'JobSense', href: 'https://jobsense.intellectsai.au/', isRoute: false, isExternal: true }
+      { name: 'Voxly', href: 'https://voxly.intellectsai.au/', isRoute: false, isExternal: true },
     ]
   };
 
@@ -78,25 +78,25 @@ const Header = () => {
             Services
           </a>
 
-          {/* Products Dropdown */}
+          {/* Solutions Dropdown */}
           <div
             className="relative"
-            onMouseEnter={() => setIsProductsOpen(true)}
-            onMouseLeave={() => setIsProductsOpen(false)}
+            onMouseEnter={() => setIsSolutionsOpen(true)}
+            onMouseLeave={() => setIsSolutionsOpen(false)}
           >
             <button
               className="flex items-center gap-1 text-text-secondary hover:text-text-primary transition-colors py-2"
-              aria-label="Products menu"
-              aria-expanded={isProductsOpen}
+              aria-label="Solutions menu"
+              aria-expanded={isSolutionsOpen}
             >
-              {productsDropdown.name}
+              {solutionsDropdown.name}
               <ChevronDown
                 size={16}
-                className={`transition-transform duration-200 ${isProductsOpen ? 'rotate-180' : ''}`}
+                className={`transition-transform duration-200 ${isSolutionsOpen ? 'rotate-180' : ''}`}
               />
             </button>
 
-            {isProductsOpen && (
+            {isSolutionsOpen && (
               <motion.div
                 initial={{ opacity: 0, y: -10 }}
                 animate={{ opacity: 1, y: 0 }}
@@ -105,7 +105,7 @@ const Header = () => {
                 className="absolute top-full left-0 pt-1 min-w-[180px]"
               >
                 <div className="bg-background-dark border border-gray-700 rounded-lg shadow-xl py-2">
-                  {productsDropdown.items.map((item) =>
+                  {solutionsDropdown.items.map((item) =>
                     item.isExternal ? (
                       <a
                         key={item.name}
@@ -187,21 +187,21 @@ const Header = () => {
                 Services
               </a>
 
-              {/* Products Dropdown */}
+              {/* Solutions Dropdown */}
               <div>
                 <button
                   className="flex items-center justify-between w-full text-text-secondary hover:text-text-primary py-2 transition-colors"
-                  onClick={() => setIsMobileProductsOpen(!isMobileProductsOpen)}
-                  aria-expanded={isMobileProductsOpen}
-                  aria-label="Products menu"
+                  onClick={() => setIsMobileSolutionsOpen(!isMobileSolutionsOpen)}
+                  aria-expanded={isMobileSolutionsOpen}
+                  aria-label="Solutions menu"
                 >
-                  {productsDropdown.name}
+                  {solutionsDropdown.name}
                   <ChevronDown
                     size={16}
-                    className={`transition-transform duration-200 ${isMobileProductsOpen ? 'rotate-180' : ''}`}
+                    className={`transition-transform duration-200 ${isMobileSolutionsOpen ? 'rotate-180' : ''}`}
                   />
                 </button>
-                {isMobileProductsOpen && (
+                {isMobileSolutionsOpen && (
                   <motion.div
                     initial={{ opacity: 0, height: 0 }}
                     animate={{ opacity: 1, height: 'auto' }}
@@ -209,7 +209,7 @@ const Header = () => {
                     transition={{ duration: 0.2 }}
                     className="pl-4 border-l border-gray-700 ml-2"
                   >
-                    {productsDropdown.items.map((item) =>
+                    {solutionsDropdown.items.map((item) =>
                       item.isExternal ? (
                         <a
                           key={item.name}
@@ -220,7 +220,7 @@ const Header = () => {
                           aria-label={`Navigate to ${item.name}`}
                           onClick={() => {
                             setIsMenuOpen(false);
-                            setIsMobileProductsOpen(false);
+                            setIsMobileSolutionsOpen(false);
                           }}
                         >
                           {item.name}
@@ -233,7 +233,7 @@ const Header = () => {
                           aria-label={`Navigate to ${item.name}`}
                           onClick={() => {
                             setIsMenuOpen(false);
-                            setIsMobileProductsOpen(false);
+                            setIsMobileSolutionsOpen(false);
                           }}
                         >
                           {item.name}
