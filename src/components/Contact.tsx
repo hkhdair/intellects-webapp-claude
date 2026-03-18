@@ -268,8 +268,8 @@ const Contact: React.FC = () => {
                   {...register('message', {
                     required: 'Message is required',
                     minLength: {
-                      value: 10,
-                      message: 'Message must be at least 10 characters'
+                      value: 20,
+                      message: 'Message must be at least 20 characters'
                     },
                     maxLength: {
                       value: 1000,
