@@ -46,7 +46,7 @@ const Contact: React.FC = () => {
     setErrorMessage('');
 
     try {
-      const response = await fetch('https://wflow.intellects.tech/webhook/contact-form', {
+      const response = await fetch('https://wflow.intellectsai.au/webhook/contact-form', {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
