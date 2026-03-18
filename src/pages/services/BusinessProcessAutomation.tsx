@@ -5,6 +5,8 @@ const BusinessProcessAutomation: React.FC = () => {
   const pageData = {
     title: "Business Process Automation",
     subtitle: "Workflows, assistants, and integrations that remove busywork and keep systems in sync.",
+    metaDescription: "Automate workflows with chatbots, voice agents, and CRM integrations. Intellects AI helps Australian businesses cut manual data entry, connect systems, and deploy intelligent assistants.",
+    canonicalPath: "/services/business-process-automation",
     deliverBullets: [
       "Workflow automation across tools",
       "Forms + data-entry automation",

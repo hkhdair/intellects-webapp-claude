@@ -1,0 +1,37 @@
+# Intellects AI
+
+> Intellects AI is an Australian AI and automation agency based in Adelaide, South Australia. We deliver intelligent automation, custom AI solutions, and AI training for businesses and education. We help organisations streamline processes, adopt AI responsibly, and improve operational efficiency.
+
+## Services
+
+### Business Process Automation
+Workflows, assistants, and integrations that remove busywork and keep systems in sync. We automate CRM integrations (HubSpot, Salesforce, Zoho), deploy chatbots and voice agents, and build retail marketing workflows using tools like n8n, Make, and custom API integrations. Typical build time: 1-2 weeks for simple automations, 4-8 weeks for complex solutions.
+- URL: https://intellectsai.au/services/business-process-automation
+
+### Custom AI Solutions
+Fine-tuned AI models and Retrieval-Augmented Generation (RAG) pipelines built on your data — evaluated, deployed, and designed with privacy in mind. Includes data readiness checks, model fine-tuning, RAG pipeline setup, evaluation (accuracy, safety, bias), and secure deployment via API or internal tool. Aligned with Australian Privacy Principles (APPs).
+- URL: https://intellectsai.au/services/custom-ai-solutions
+
+### Training & Support
+Practical onboarding, playbooks, change management, and ongoing support to ensure AI and automation solutions deliver lasting results. Includes live/async training sessions, SOPs, adoption plans, and flexible maintenance options.
+- URL: https://intellectsai.au/services/training-support
+
+## Products
+
+### Voxly - AI Voice Assistant
+AI-powered voice assistant for Australian businesses. Handles inbound and outbound calls, answers FAQs, and automates phone interactions 24/7.
+- URL: https://voxly.intellectsai.au/
+
+## Free Assessment
+Take a free AI & Automation readiness assessment. No signup required, instant results, 100% confidential. Covers automation opportunities, CRM integration readiness, AI/chatbot potential, team adoption readiness, and data readiness.
+- URL: https://intellectsai.au/assessment
+
+## Contact
+- Phone: (08) 6171 2665
+- Address: 451 Pulteney St, Adelaide SA 5000, Australia
+- Website: https://intellectsai.au
+- LinkedIn: https://linkedin.com/company/intellects-tech
+
+## Optional
+
+- Full details: https://intellectsai.au/llms-full.txt

@@ -1,6 +1,7 @@
 import React from 'react';
 import Header from '../../components/Header';
 import Footer from '../../components/Footer';
+import SEOHead from '../../components/SEOHead';
 import AssessmentWizard from './components/AssessmentWizard';
 import { useAssessment } from './useAssessment';
 
@@ -9,6 +10,11 @@ const AssessmentPage: React.FC = () => {
 
   return (
     <div className="min-h-screen flex flex-col bg-background-dark">
+      <SEOHead
+        title="Free AI & Automation Readiness Assessment"
+        description="Take our free assessment to discover how AI and automation can transform your business. No signup required, instant results, 100% confidential."
+        canonicalPath="/assessment"
+      />
       <Header />
 
       <main className="flex-1 pt-24">

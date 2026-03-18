@@ -2,6 +2,7 @@ import React, { useState, useEffect } from 'react';
 import { useSearchParams, Link } from 'react-router-dom';
 import { motion, AnimatePresence } from 'framer-motion';
 import { Mail, CheckCircle, AlertCircle, XCircle, ArrowLeft, X, AlertTriangle } from 'lucide-react';
+import SEOHead from './SEOHead';
 
 type NotificationType = 'success' | 'warning' | 'error' | null;
 
@@ -129,6 +130,12 @@ const Unsubscribe: React.FC = () => {
 
   return (
     <div className="min-h-screen bg-gradient-to-br from-background-dark via-background-light to-background-dark flex items-center justify-center px-4 py-12">
+      <SEOHead
+        title="Unsubscribe from Newsletter"
+        description="Unsubscribe from the Intellects AI newsletter."
+        canonicalPath="/unsubscribe"
+        noindex={true}
+      />
       {/* Background decoration */}
       <div className="absolute inset-0 overflow-hidden">
         <div className="absolute top-20 left-20 w-64 h-64 bg-gradient-to-br from-primary/10 to-secondary/10 rounded-full blur-3xl"></div>

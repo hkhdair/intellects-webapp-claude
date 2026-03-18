@@ -5,6 +5,8 @@ const TrainingSupport: React.FC = () => {
   const pageData = {
     title: "Training & Support",
     subtitle: "Adoption that sticks — practical training, rollout support, and maintenance options.",
+    metaDescription: "Practical AI onboarding, playbooks, change management, and ongoing support. Intellects AI ensures your automation solutions deliver lasting results for Australian teams.",
+    canonicalPath: "/services/training-support",
     deliverBullets: [
       "Onboarding sessions (live or async)",
       "Playbooks, SOPs, and quick reference guides",

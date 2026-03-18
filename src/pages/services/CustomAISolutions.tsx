@@ -5,6 +5,8 @@ const CustomAISolutions: React.FC = () => {
   const pageData = {
     title: "Custom AI Solutions",
     subtitle: "Fine‑tuned AI and Retrieval‑Augmented Generation (RAG) for your data — evaluated, deployed, and built with privacy in mind.",
+    metaDescription: "Fine-tuned AI models and RAG pipelines built on your data with privacy-by-design. Intellects AI delivers secure, evaluated AI solutions for Australian organisations.",
+    canonicalPath: "/services/custom-ai-solutions",
     deliverBullets: [
       "Data readiness check + preparation guidance",
       "Model fine‑tuning, RAG pipeline setup, or custom training",

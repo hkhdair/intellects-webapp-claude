@@ -2,6 +2,9 @@ User-agent: *
 Allow: /
 Sitemap: https://intellectsai.au/sitemap.xml
 
+# LLM-friendly site summary
+Llms-txt: https://intellectsai.au/llms.txt
+
 # Block blog pages (removed functionality)
 Disallow: /blog/
 Disallow: /blog

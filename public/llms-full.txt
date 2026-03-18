@@ -1,0 +1,183 @@
+# Intellects AI — Full Site Information
+
+> Intellects AI is an Australian AI and automation agency based in Adelaide, South Australia. We deliver intelligent automation, custom AI solutions, and AI training for businesses and education. We help organisations streamline processes, adopt AI responsibly, and improve operational efficiency.
+
+---
+
+## Business Process Automation
+
+Workflows, assistants, and integrations that remove busywork and keep systems in sync.
+
+### What You Get
+- Workflow automation across tools
+- Forms and data-entry automation
+- CRM integrations (HubSpot, Salesforce, Zoho, and others)
+- Chatbots, personal assistants, voice agents
+- Monitoring, analytics, and safe handover
+- Retail marketing workflows (ads, UGC, scheduling)
+
+### Ideal For
+- Teams drowning in repetitive admin
+- Sales/ops needing clean CRM data
+- Customer support wanting fast triage
+- Retail/eCom needing consistent content ops
+
+### How It Works
+1. Discovery — Map workflows and goals
+2. Build — Automation, assistant, and integrations
+3. Test — Edge cases, accuracy, security
+4. Launch — Deploy, dashboards, and handover
+5. Improve — Iteration based on usage
+
+### Use Cases
+- Lead capture to CRM to follow-up automation
+- Support chatbot triage with human handoff
+- Voice agent for bookings and FAQs
+- Retail content pipeline (UGC collection, approval, scheduling)
+
+### FAQ
+Q: What tools can you integrate with?
+A: We work with popular CRMs (HubSpot, Salesforce, Zoho), email platforms, databases, spreadsheets, and most tools with APIs. If your tool has an API or webhook support, we can likely integrate it.
+
+Q: Can this work with our existing CRM?
+A: Yes. We specialise in connecting automation to your current systems rather than replacing them. We'll assess your CRM's capabilities and build integrations that enhance what you already have.
+
+Q: How do you handle handover to a human?
+A: We design handover points where the bot recognises it needs help (e.g., complex questions, upset customers) and routes to your team with full conversation context. You define the handover rules.
+
+Q: What does 'voice agent' mean in practice?
+A: A voice agent is an AI that can understand and respond to spoken questions via phone or voice interface. Think of it as a chatbot you can talk to, handling bookings, FAQs, or routing calls.
+
+Q: How long does a typical build take?
+A: Simple automations can be ready in 1-2 weeks. More complex solutions with chatbots, voice agents, and multiple integrations typically take 4-8 weeks. We'll scope your specific timeline during discovery.
+
+- URL: https://intellectsai.au/services/business-process-automation
+
+---
+
+## Custom AI Solutions
+
+Fine-tuned AI and Retrieval-Augmented Generation (RAG) for your data — evaluated, deployed, and built with privacy in mind.
+
+### What You Get
+- Data readiness check and preparation guidance
+- Model fine-tuning, RAG pipeline setup, or custom training
+- Evaluation (accuracy, safety, bias checks where relevant)
+- Deployment (API, internal tool, or embedded workflow)
+- Privacy-by-design practices (general, not legal advice)
+- Documentation, handover, and optional monitoring
+
+### Ideal For
+- Organisations with proprietary knowledge/data
+- Teams needing better predictions or classification
+- Products needing smarter search/assistants
+- Teams wanting accurate, context-aware AI answers powered by their internal documents
+
+### How It Works
+1. Scope and success metrics — Define AI goals and how we'll measure success
+2. Data prep and baseline — Assess and prepare data, establish baseline performance
+3. Fine-tune / Knowledge-augment and evaluate — Train the model and enhance with retrieval
+4. Deploy and integrate — Launch the model via API or embed in workflow
+5. Monitor and iterate — Track performance and improve based on real-world use
+
+### Use Cases
+- Private knowledge assistant over internal docs
+- Forecasting/predictive analytics model
+- (EdTech) Personalised tutoring assistant
+
+### FAQ
+Q: Do you train on our private data?
+A: Yes, but with strict privacy controls. Your data is used only to train your model and never shared or mixed with other clients. We can work with on-premises deployment or secure cloud environments based on your requirements.
+
+Q: How do you evaluate model quality?
+A: We use metrics appropriate to your use case (accuracy, precision, fairness, etc.) and test on held-out data. We also conduct real-world scenario testing and check for potential biases or edge cases.
+
+Q: Where can it be deployed?
+A: We can deploy via API (cloud or on-premises), integrate into existing applications, create standalone tools, or embed in workflows. Deployment method depends on your security requirements and use case.
+
+Q: What about Australian privacy requirements?
+A: We design with privacy-by-design principles following the Australian Privacy Principles (APPs). This includes data minimisation, secure storage, and appropriate handling of personal information. Note: this is general implementation guidance, not legal advice.
+
+Q: Do we need a big dataset?
+A: Not always. Fine-tuning can work with smaller datasets (hundreds to thousands of examples). The exact requirements depend on your task complexity. We'll assess your data during the scoping phase and recommend the best approach.
+
+- URL: https://intellectsai.au/services/custom-ai-solutions
+
+---
+
+## Training & Support
+
+Adoption that sticks — practical training, rollout support, and maintenance options.
+
+### What You Get
+- Onboarding sessions (live or async)
+- Playbooks, SOPs, and quick reference guides
+- Adoption plan and success metrics
+- Change management support (comms and champions)
+- Maintenance options (short/long-term)
+- Iteration and optimisation after launch
+
+### Ideal For
+- Teams launching AI products such as chatbots or automations
+- Organisations needing consistent operations
+- Leaders managing change and risk
+- Organisations wanting ongoing improvements
+
+### How It Works
+1. Current-state assessment — Understand team readiness and challenges
+2. Enablement plan — Design training and rollout strategy
+3. Training and rollout — Deliver hands-on training and support the launch
+4. Support window and feedback loop — Post-launch assistance and insights
+5. Maintenance or monthly optimisation — Ongoing support and improvements
+
+### Use Cases
+- Team onboarding for chatbot and escalation
+- Operating model for automated workflows
+- Monthly maintenance and improvements
+- AI usage guidelines and safe rollout
+
+### FAQ
+Q: Do you train non-technical teams?
+A: Absolutely. We specialise in making AI and automation accessible to everyone. Training is tailored to your team's technical level, using plain language and hands-on examples relevant to their daily work.
+
+Q: What does ongoing support include?
+A: Ongoing support can include troubleshooting, performance monitoring, updates, new feature additions, and optimisation. We offer flexible arrangements from ad-hoc help to monthly retainers depending on your needs.
+
+Q: Can you support tools you didn't build?
+A: Yes. We can provide training and support for AI/automation tools from other providers. We'll learn your system and help your team use it effectively, though deep customisation may have limitations.
+
+Q: How do we measure adoption?
+A: We help you define success metrics like usage rates, task completion times, user satisfaction scores, or error reduction. We'll set up tracking and regular reviews to measure progress and identify areas for improvement.
+
+- URL: https://intellectsai.au/services/training-support
+
+---
+
+## Voxly — AI Voice Assistant
+
+AI-powered voice assistant for Australian businesses. Handles inbound and outbound calls, answers FAQs, and automates phone interactions 24/7.
+
+- URL: https://voxly.intellectsai.au/
+
+---
+
+## Free AI & Automation Readiness Assessment
+
+A multi-phase assessment covering:
+- Business reality check (team time sinks, improvement priorities, hours on repetitive tasks)
+- Automation and AI readiness (current tools, system connections, automation opportunities, team readiness)
+- Instant personalised recommendations
+
+No signup required. 100% confidential. Instant results.
+
+- URL: https://intellectsai.au/assessment
+
+---
+
+## Contact Information
+- Company: Intellects AI
+- Founder: Hisham Khdair
+- Phone: (08) 6171 2665 / +61 8 6171 2665
+- Address: 451 Pulteney St, Adelaide SA 5000, Australia
+- Website: https://intellectsai.au
+- LinkedIn: https://linkedin.com/company/intellects-tech

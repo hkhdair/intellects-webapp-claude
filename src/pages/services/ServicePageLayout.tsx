@@ -4,6 +4,7 @@ import { Link } from 'react-router-dom';
 import { ChevronRight, Mail, ArrowRight, ChevronDown } from 'lucide-react';
 import Header from '../../components/Header';
 import Footer from '../../components/Footer';
+import SEOHead from '../../components/SEOHead';
 
 const CONTACT_EMAIL = "hello@intellectsai.au";
 
@@ -31,6 +32,8 @@ interface HeroCTAProps {
 interface ServicePageLayoutProps {
   title: string;
   subtitle: string;
+  metaDescription: string;
+  canonicalPath: string;
   deliverBullets: string[];
   idealForBullets: string[];
   steps: Step[];
@@ -43,6 +46,8 @@ interface ServicePageLayoutProps {
 const ServicePageLayout: React.FC<ServicePageLayoutProps> = ({
   title,
   subtitle,
+  metaDescription,
+  canonicalPath,
   deliverBullets,
   idealForBullets,
   steps,
@@ -53,14 +58,57 @@ const ServicePageLayout: React.FC<ServicePageLayoutProps> = ({
 }) => {
   const [openFAQ, setOpenFAQ] = useState<number | null>(null);
 
+  const jsonLd = [
+    {
+      "@context": "https://schema.org",
+      "@type": "Service",
+      "serviceType": title,
+      "provider": {
+        "@type": "Organization",
+        "name": "Intellects AI",
+        "url": "https://intellectsai.au"
+      },
+      "areaServed": { "@type": "Country", "name": "Australia" },
+      "description": metaDescription,
+      "url": `https://intellectsai.au${canonicalPath}`
+    },
+    {
+      "@context": "https://schema.org",
+      "@type": "BreadcrumbList",
+      "itemListElement": [
+        { "@type": "ListItem", "position": 1, "name": "Home", "item": "https://intellectsai.au/" },
+        { "@type": "ListItem", "position": 2, "name": "Services", "item": "https://intellectsai.au/#services" },
+        { "@type": "ListItem", "position": 3, "name": title, "item": `https://intellectsai.au${canonicalPath}` }
+      ]
+    },
+    {
+      "@context": "https://schema.org",
+      "@type": "FAQPage",
+      "mainEntity": faqs.map(faq => ({
+        "@type": "Question",
+        "name": faq.question,
+        "acceptedAnswer": {
+          "@type": "Answer",
+          "text": faq.answer
+        }
+      }))
+    }
+  ];
+
   return (
     <div className="min-h-screen flex flex-col bg-background-dark">
+      <SEOHead
+        title={title}
+        description={metaDescription}
+        canonicalPath={canonicalPath}
+        jsonLd={jsonLd}
+      />
       <Header />
-      
+
       <main className="flex-1">
         {/* Breadcrumb */}
         <div className="container py-6 mt-8">
-          <nav className="flex items-center gap-2 text-sm text-text-muted">
+          <nav aria-label="Breadcrumb" className="flex items-center gap-2 text-sm text-text-muted">
             <Link to="/" className="hover:text-primary transition-colors">Home</Link>
             <ChevronRight className="w-4 h-4" />
             <span className="text-text-secondary">Services</span>

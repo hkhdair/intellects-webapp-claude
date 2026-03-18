@@ -1,24 +1,28 @@
+import { lazy, Suspense } from 'react';
 import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
-import HomePage from './components/HomePage';
-import Unsubscribe from './components/Unsubscribe';
 import ScrollToHash from './components/ScrollToHash';
-import BusinessProcessAutomation from './pages/services/BusinessProcessAutomation';
-import CustomAISolutions from './pages/services/CustomAISolutions';
-import TrainingSupport from './pages/services/TrainingSupport';
-import AssessmentPage from './pages/assessment/AssessmentPage';
+
+const HomePage = lazy(() => import('./components/HomePage'));
+const Unsubscribe = lazy(() => import('./components/Unsubscribe'));
+const BusinessProcessAutomation = lazy(() => import('./pages/services/BusinessProcessAutomation'));
+const CustomAISolutions = lazy(() => import('./pages/services/CustomAISolutions'));
+const TrainingSupport = lazy(() => import('./pages/services/TrainingSupport'));
+const AssessmentPage = lazy(() => import('./pages/assessment/AssessmentPage'));
 
 function App() {
   return (
     <Router>
       <ScrollToHash />
-      <Routes>
-        <Route path="/" element={<HomePage />} />
-        <Route path="/unsubscribe" element={<Unsubscribe />} />
-        <Route path="/services/business-process-automation" element={<BusinessProcessAutomation />} />
-        <Route path="/services/custom-ai-solutions" element={<CustomAISolutions />} />
-        <Route path="/services/training-support" element={<TrainingSupport />} />
-        <Route path="/assessment" element={<AssessmentPage />} />
-      </Routes>
+      <Suspense fallback={<div className="min-h-screen bg-background-dark" />}>
+        <Routes>
+          <Route path="/" element={<HomePage />} />
+          <Route path="/unsubscribe" element={<Unsubscribe />} />
+          <Route path="/services/business-process-automation" element={<BusinessProcessAutomation />} />
+          <Route path="/services/custom-ai-solutions" element={<CustomAISolutions />} />
+          <Route path="/services/training-support" element={<TrainingSupport />} />
+          <Route path="/assessment" element={<AssessmentPage />} />
+        </Routes>
+      </Suspense>
     </Router>
   );
 }

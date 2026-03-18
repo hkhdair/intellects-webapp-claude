@@ -7,6 +7,10 @@
   # Directory with the static files
   publish = "dist"
 
+# Prerender pages for search engine and AI crawlers (serves static HTML to bots)
+[[plugins]]
+  package = "@netlify/plugin-prerender"
+
 # Redirect job screening to standalone site
 [[redirects]]
   from = "/job_screening"
