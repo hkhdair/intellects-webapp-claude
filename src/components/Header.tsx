@@ -33,7 +33,7 @@ const Header = () => {
   const solutionsDropdown = {
     name: 'Solutions',
     items: [
-      { name: 'Voxly', href: 'https://voxly.intellectsai.au/', isRoute: false, isExternal: true },
+      { name: 'Voxly - AI Voice Assistant', href: 'https://voxly.intellectsai.au/', isRoute: false, isExternal: true },
     ]
   };
 
