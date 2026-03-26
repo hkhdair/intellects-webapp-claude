@@ -153,11 +153,11 @@ A: We help you define success metrics like usage rates, task completion times, u
 
 ---
 
-## Voxly — AI Voice Assistant
+## Voxify — AI Voice Agent
 
-AI-powered voice assistant for Australian businesses. Handles inbound and outbound calls, answers FAQs, and automates phone interactions 24/7.
+AI-powered voice agent for Australian businesses. Handles inbound and outbound calls, answers FAQs, and automates phone interactions 24/7.
 
-- URL: https://voxly.intellectsai.au/
+- URL: https://voxify.intellectsai.au/
 
 ---
 

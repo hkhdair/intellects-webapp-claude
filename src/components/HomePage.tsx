@@ -82,10 +82,10 @@ const homepageJsonLd = [
           "@type": "Offer",
           "itemOffered": {
             "@type": "SoftwareApplication",
-            "name": "Voxly - AI Voice Assistant",
-            "url": "https://voxly.intellectsai.au/",
+            "name": "Voxify - AI Voice Agent",
+            "url": "https://voxify.intellectsai.au/",
             "applicationCategory": "BusinessApplication",
-            "description": "Voxly is an AI-powered voice assistant that handles calls, answers questions, and automates phone interactions for Australian businesses."
+            "description": "Voxify is an AI-powered voice agent that handles calls, answers questions, and automates phone interactions for Australian businesses."
           }
         }
       ]
@@ -102,12 +102,12 @@ const homepageJsonLd = [
   {
     "@context": "https://schema.org",
     "@type": "SoftwareApplication",
-    "name": "Voxly",
-    "alternateName": "Voxly - AI Voice Assistant",
-    "url": "https://voxly.intellectsai.au/",
+    "name": "Voxify",
+    "alternateName": "Voxify - AI Voice Agent",
+    "url": "https://voxify.intellectsai.au/",
     "applicationCategory": "BusinessApplication",
     "operatingSystem": "Web",
-    "description": "AI-powered voice assistant for Australian businesses. Handles inbound and outbound calls, answers FAQs, and automates phone interactions 24/7.",
+    "description": "AI-powered voice agent for Australian businesses. Handles inbound and outbound calls, answers FAQs, and automates phone interactions 24/7.",
     "offers": { "@type": "Offer", "availability": "https://schema.org/InStock" },
     "creator": {
       "@type": "Organization",
