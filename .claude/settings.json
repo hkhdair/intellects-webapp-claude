@@ -1,0 +1,9 @@
+{
+  "permissions": {
+    "allow": [
+      "mcp__netlify__netlify-project-services-reader",
+      "Bash(netlify --version)",
+      "Bash(npx netlify-cli:*)"
+    ]
+  }
+}
