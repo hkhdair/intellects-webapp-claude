@@ -80,10 +80,9 @@ const homepageJsonLd = [
         {
           "@type": "Offer",
           "itemOffered": {
-            "@type": "SoftwareApplication",
+            "@type": "Service",
             "name": "Voxify - AI Voice Agent",
             "url": "https://voxify.intellectsai.au/",
-            "applicationCategory": "BusinessApplication",
             "description": "Voxify is an AI-powered voice agent that handles calls, answers questions, and automates phone interactions for Australian businesses."
           }
         }
