@@ -24,12 +24,6 @@ const Header = () => {
     return () => window.removeEventListener('scroll', handleScroll);
   }, []);
 
-  const navLinks = [
-    { name: 'Home', href: '/', isRoute: true },
-    { name: 'Services', href: '/#services', isRoute: false },
-    { name: 'Contact', href: '#contact', isRoute: false }
-  ];
-
   const solutionsDropdown = {
     name: 'Solutions',
     items: [
@@ -54,7 +48,8 @@ const Header = () => {
       }`}
     >
       <div className="container flex items-center justify-between">
-        <a href="/" className="flex items-center gap-2 text-xl font-bold" aria-label="Intellects.tech homepage">
+        <a href="/" className="flex items-center gap-2 text-xl font-bold" aria-label="Intellects AI homepage">
+          <img src="/favicon.svg" alt="Intellects AI logo" width={28} height={28} />
           <span className="gradient-text">Intellects AI</span>
         </a>
 
@@ -70,13 +65,13 @@ const Header = () => {
           </Link>
 
           {/* Services Link */}
-          <a
-            href="#services"
+          <Link
+            to="/#services"
             className="text-text-secondary hover:text-text-primary transition-colors"
             aria-label="Navigate to Services section"
           >
             Services
-          </a>
+          </Link>
 
           {/* Solutions Dropdown */}
           <div
@@ -178,14 +173,14 @@ const Header = () => {
               </Link>
 
               {/* Services */}
-              <a
-                href="#services"
+              <Link
+                to="/#services"
                 className="text-text-secondary hover:text-text-primary py-2 transition-colors"
                 aria-label="Navigate to Services section"
                 onClick={() => setIsMenuOpen(false)}
               >
                 Services
-              </a>
+              </Link>
 
               {/* Solutions Dropdown */}
               <div>

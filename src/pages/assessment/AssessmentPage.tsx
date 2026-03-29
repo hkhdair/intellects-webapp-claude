@@ -5,6 +5,27 @@ import SEOHead from '../../components/SEOHead';
 import AssessmentWizard from './components/AssessmentWizard';
 import { useAssessment } from './useAssessment';
 
+const assessmentJsonLd = [
+  {
+    "@context": "https://schema.org",
+    "@type": "WebPage",
+    "name": "Free AI & Automation Readiness Assessment | Intellects AI",
+    "url": "https://intellectsai.au/assessment",
+    "description": "Take our free assessment to discover how AI and automation can transform your business. No signup required, instant results, 100% confidential.",
+    "isPartOf": { "@id": "https://intellectsai.au/" },
+    "breadcrumb": { "@id": "https://intellectsai.au/assessment#breadcrumb" }
+  },
+  {
+    "@context": "https://schema.org",
+    "@type": "BreadcrumbList",
+    "@id": "https://intellectsai.au/assessment#breadcrumb",
+    "itemListElement": [
+      { "@type": "ListItem", "position": 1, "name": "Home", "item": "https://intellectsai.au/" },
+      { "@type": "ListItem", "position": 2, "name": "Free AI Readiness Assessment", "item": "https://intellectsai.au/assessment" }
+    ]
+  }
+];
+
 const AssessmentPage: React.FC = () => {
   const assessment = useAssessment();
 
@@ -14,6 +35,7 @@ const AssessmentPage: React.FC = () => {
         title="Free AI & Automation Readiness Assessment"
         description="Take our free assessment to discover how AI and automation can transform your business. No signup required, instant results, 100% confidential."
         canonicalPath="/assessment"
+        jsonLd={assessmentJsonLd}
       />
       <Header />
 

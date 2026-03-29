@@ -28,7 +28,6 @@ const homepageJsonLd = [
       "postalCode": "5000",
       "addressCountry": "AU"
     },
-    "sameAs": ["https://linkedin.com/company/intellects-tech"],
     "knowsAbout": [
       "artificial intelligence",
       "business process automation",
@@ -119,7 +118,42 @@ const homepageJsonLd = [
     "@context": "https://schema.org",
     "@type": "WebSite",
     "name": "Intellects AI",
-    "url": "https://intellectsai.au/"
+    "url": "https://intellectsai.au/",
+    "potentialAction": {
+      "@type": "SearchAction",
+      "target": {
+        "@type": "EntryPoint",
+        "urlTemplate": "https://intellectsai.au/?q={search_term_string}"
+      },
+      "query-input": "required name=search_term_string"
+    }
+  },
+  {
+    "@context": "https://schema.org",
+    "@type": "Organization",
+    "name": "Intellects AI",
+    "url": "https://intellectsai.au",
+    "logo": "https://intellectsai.au/favicon.svg",
+    "description": "AI and automation agency based in Adelaide, Australia. We build voice AI, workflow automation, and AI-powered solutions for Australian SMBs.",
+    "address": {
+      "@type": "PostalAddress",
+      "addressLocality": "Adelaide",
+      "addressRegion": "SA",
+      "addressCountry": "AU"
+    }
+  },
+  {
+    "@context": "https://schema.org",
+    "@type": "ItemList",
+    "name": "Site Navigation",
+    "itemListElement": [
+      { "@type": "SiteNavigationElement", "position": 1, "name": "Home", "url": "https://intellectsai.au/" },
+      { "@type": "SiteNavigationElement", "position": 2, "name": "Business Process Automation", "url": "https://intellectsai.au/services/business-process-automation" },
+      { "@type": "SiteNavigationElement", "position": 3, "name": "Custom AI Solutions", "url": "https://intellectsai.au/services/custom-ai-solutions" },
+      { "@type": "SiteNavigationElement", "position": 4, "name": "Training & Support", "url": "https://intellectsai.au/services/training-support" },
+      { "@type": "SiteNavigationElement", "position": 5, "name": "Free AI Readiness Assessment", "url": "https://intellectsai.au/assessment" },
+      { "@type": "SiteNavigationElement", "position": 6, "name": "Voxify - AI Voice Agent", "url": "https://voxify.intellectsai.au/" }
+    ]
   }
 ];
 

@@ -8,6 +8,8 @@ const BusinessProcessAutomation = lazy(() => import('./pages/services/BusinessPr
 const CustomAISolutions = lazy(() => import('./pages/services/CustomAISolutions'));
 const TrainingSupport = lazy(() => import('./pages/services/TrainingSupport'));
 const AssessmentPage = lazy(() => import('./pages/assessment/AssessmentPage'));
+const PrivacyPage = lazy(() => import('./pages/legal/PrivacyPage'));
+const TermsPage = lazy(() => import('./pages/legal/TermsPage'));
 
 function App() {
   return (
@@ -21,6 +23,8 @@ function App() {
           <Route path="/services/custom-ai-solutions" element={<CustomAISolutions />} />
           <Route path="/services/training-support" element={<TrainingSupport />} />
           <Route path="/assessment" element={<AssessmentPage />} />
+          <Route path="/privacy" element={<PrivacyPage />} />
+          <Route path="/terms" element={<TermsPage />} />
         </Routes>
       </Suspense>
     </Router>
