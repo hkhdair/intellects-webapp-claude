@@ -32,12 +32,12 @@ const TermsPage: React.FC = () => {
                 or engaging Intellects AI to provide services. By accessing our website or entering into a
                 service agreement with us, you agree to be bound by these Terms.
               </p>
-              <p className="mt-4">
+              {/* <p className="mt-4">
                 These Terms are governed by the laws of South Australia, Australia, and are subject to
                 the <strong className="text-text-primary">Australian Consumer Law (ACL)</strong> as
                 contained in Schedule 2 of the Competition and Consumer Act 2010 (Cth). Nothing in
                 these Terms limits any rights you have under the ACL that cannot be excluded.
-              </p>
+              </p> */}
             </section>
 
             <section>
