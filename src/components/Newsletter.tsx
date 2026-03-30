@@ -40,7 +40,7 @@ const Newsletter: React.FC = () => {
     setNotification({ type: null, message: '' });
 
     try {
-      const response = await fetch('https://wflow.intellects.tech/webhook/subscribe', {
+      const response = await fetch('https://wflow.intellectsai.au/webhook/subscribe', {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',

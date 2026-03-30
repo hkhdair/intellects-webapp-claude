@@ -43,7 +43,7 @@ const Unsubscribe: React.FC = () => {
     setNotification({ type: null, message: '' });
 
     try {
-      const response = await fetch('https://wflow.intellects.tech/webhook/confirm_unsubscibtion', {
+      const response = await fetch('https://wflow.intellectsai.au/webhook/unsubscribe', {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
